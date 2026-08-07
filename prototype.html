@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Builder 健身 App — 产品原型图</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0a0e1a;
+    color: #e0e0e0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    padding: 40px 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  h1 {
+    text-align: center;
+    font-size: 32px;
+    background: linear-gradient(135deg, #00D4FF, #7C4DFF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    text-align: center;
+    color: #8899aa;
+    font-size: 14px;
+    margin-bottom: 50px;
+  }
+  .section {
+    margin-bottom: 60px;
+  }
+  .section-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    padding-left: 16px;
+    border-left: 4px solid #00D4FF;
+    color: #fff;
+  }
+
+  /* 产品架构图 */
+  .arch-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+  .arch-card {
+    background: #131a2b;
+    border: 1px solid #1e2d4a;
+    border-radius: 16px;
+    padding: 24px;
+    transition: all 0.3s;
+  }
+  .arch-card:hover {
+    border-color: #00D4FF;
+    transform: translateY(-2px);
+  }
+  .arch-card .icon {
+    font-size: 36px;
+    margin-bottom: 12px;
+  }
+  .arch-card h3 {
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .arch-card p {
+    font-size: 13px;
+    color: #8899aa;
+    line-height: 1.6;
+  }
+  .arch-card .tags {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .arch-card .tag {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: rgba(0,212,255,0.1);
+    color: #00D4FF;
+  }
+
+  /* 用户流程 */
+  .flow-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 30px 0;
+  }
+  .flow-step {
+    background: #131a2b;
+    border: 1px solid #1e2d4a;
+    border-radius: 12px;
+    padding: 16px 20px;
+    text-align: center;
+    min-width: 140px;
+    position: relative;
+  }
+  .flow-step .num {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #00D4FF, #7C4DFF);
+    color: #fff;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .flow-step .step-icon {
+    font-size: 28px;
+    margin-bottom: 6px;
+  }
+  .flow-step .step-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .flow-step .step-desc {
+    font-size: 11px;
+    color: #8899aa;
+    margin-top: 4px;
+  }
+  .flow-arrow {
+    font-size: 20px;
+    color: #00D4FF;
+  }
+
+  /* 界面原型 */
+  .screens-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .screen-card {
+    background: #131a2b;
+    border: 1px solid #1e2d4a;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .screen-card .screen-label {
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    border-bottom: 1px solid #1e2d4a;
+  }
+  .screen-mockup {
+    padding: 16px;
+    min-height: 320px;
+    background: #0d1220;
+  }
+
+  /* 手机框架 */
+  .phone-frame {
+    width: 100%;
+    max-width: 220px;
+    margin: 0 auto;
+    background: #1a1f2e;
+    border-radius: 20px;
+    padding: 8px;
+    border: 2px solid #2a3040;
+  }
+  .phone-screen {
+    background: #0f1525;
+    border-radius: 14px;
+    padding: 12px;
+    min-height: 280px;
+  }
+  .phone-status-bar {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9px;
+    color: #667;
+    margin-bottom: 8px;
+  }
+  .phone-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .phone-header .logo {
+    font-size: 14px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #00D4FF, #7C4DFF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .phone-header .avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #2a3040;
+  }
+
+  /* 通用 UI 元素 */
+  .mock-card {
+    background: #1a2035;
+    border: 1px solid #252d45;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 8px;
+  }
+  .mock-card-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: #ddd;
+    margin-bottom: 4px;
+  }
+  .mock-card-desc {
+    font-size: 9px;
+    color: #778;
+  }
+  .mock-btn {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #00D4FF, #7C4DFF);
+    color: #fff;
+    text-align: center;
+    margin-top: 8px;
+  }
+  .mock-input {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #2a3040;
+    background: #1a2035;
+    color: #889;
+    font-size: 11px;
+    margin-bottom: 8px;
+  }
+  .mock-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 9px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+  }
+  .tag-primary { background: rgba(0,212,255,0.15); color: #00D4FF; }
+  .tag-success { background: rgba(0,230,118,0.15); color: #00E676; }
+  .tag-warning { background: rgba(255,215,64,0.15); color: #FFD740; }
+  .tag-danger { background: rgba(255,82,82,0.15); color: #FF5252; }
+
+  .mock-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .mock-stat {
+    text-align: center;
+    padding: 8px;
+    background: #1a2035;
+    border-radius: 8px;
+  }
+  .mock-stat .val {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .mock-stat .label {
+    font-size: 9px;
+    color: #778;
+    margin-top: 2px;
+  }
+
+  /* 功能矩阵 */
+  .matrix-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+  }
+  .matrix-table th, .matrix-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #1e2d4a;
+    font-size: 13px;
+  }
+  .matrix-table th {
+    background: #131a2b;
+    color: #00D4FF;
+    font-weight: 600;
+  }
+  .matrix-table td {
+    color: #aab;
+  }
+  .priority-high { color: #FF5252; font-weight: 600; }
+  .priority-mid { color: #FFD740; font-weight: 600; }
+  .priority-low { color: #00E676; font-weight: 600; }
+
+  /* 主题展示 */
+  .theme-showcase {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .theme-swatch {
+    border-radius: 12px;
+    padding: 16px 10px;
+    text-align: center;
+    border: 2px solid transparent;
+  }
+  .theme-swatch .theme-name {
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .theme-swatch .theme-colors {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+  }
+  .theme-swatch .color-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+  }
+
+  /* 竞品对比 */
+  .competitor-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .competitor-card {
+    background: #131a2b;
+    border: 1px solid #1e2d4a;
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .competitor-card h4 {
+    font-size: 15px;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .competitor-card .pros, .competitor-card .cons {
+    font-size: 12px;
+    line-height: 1.8;
+  }
+  .competitor-card .pros { color: #00E676; }
+  .competitor-card .cons { color: #FF5252; }
+  .competitor-card .label {
+    font-size: 11px;
+    color: #778;
+    margin-top: 8px;
+    margin-bottom: 2px;
+  }
+
+  @media (max-width: 900px) {
+    .arch-grid { grid-template-columns: 1fr; }
+    .screens-grid { grid-template-columns: 1fr 1fr; }
+    .theme-showcase { grid-template-columns: repeat(3, 1fr); }
+    .competitor-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<h1>🏋️ Builder 健身 App</h1>
+<p class="subtitle">Build Yourself, For Yourself — 产品原型图 v1.0 | 2026.08.05</p>
+
+<!-- ==================== 1. 产品定位 ==================== -->
+<div class="section">
+  <div class="section-title">一、产品定位与核心竞争力</div>
+  <div class="arch-grid">
+    <div class="arch-card">
+      <div class="icon">🎯</div>
+      <h3>产品定位</h3>
+      <p>面向全阶段健身人群的 AI 智能训练助手，从新手到老手全覆盖。核心理念：发掘个人潜力，为了自己而练。</p>
+      <div class="tags">
+        <span class="tag">AI 个性化</span>
+        <span class="tag">伤病感知</span>
+        <span class="tag">科学训练</span>
+      </div>
+    </div>
+    <div class="arch-card">
+      <div class="icon">💡</div>
+      <h3>核心竞争力</h3>
+      <p>市面上健身 App 都没有把「伤病恢复 + 体态矫正 + 个性化分化训练 + AI 智能分级」整合在一起。这是我们的差异化壁垒。</p>
+      <div class="tags">
+        <span class="tag">智能分级校验</span>
+        <span class="tag">伤病自动归类</span>
+        <span class="tag">6套主题系统</span>
+      </div>
+    </div>
+    <div class="arch-card">
+      <div class="icon">👥</div>
+      <h3>目标用户</h3>
+      <p>健身人群（新手到老手），年龄 18-55+。男女双维度主题适配，不同年龄段不同审美风格。</p>
+      <div class="tags">
+        <span class="tag">18-30 青年</span>
+        <span class="tag">31-45 中年</span>
+        <span class="tag">46+ 成熟</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 2. 竞品分析 ==================== -->
+<div class="section">
+  <div class="section-title">二、竞品分析</div>
+  <div class="competitor-grid">
+    <div class="competitor-card">
+      <h4>Keep</h4>
+      <div class="label">优势</div>
+      <div class="pros">用户量大、课程丰富、社区活跃</div>
+      <div class="label">劣势</div>
+      <div class="cons">无 AI 智能分级、伤病模块薄弱、计划模板化</div>
+    </div>
+    <div class="competitor-card">
+      <h4>薄荷健康</h4>
+      <div class="label">优势</div>
+      <div class="pros">饮食数据库完善、热量计算精准</div>
+      <div class="label">劣势</div>
+      <div class="cons">训练功能弱、无分化训练、无体态矫正</div>
+    </div>
+    <div class="competitor-card" style="border-color: #00D4FF;">
+      <h4 style="color: #00D4FF;">Builder（我们）⭐</h4>
+      <div class="label">优势</div>
+      <div class="pros">AI 智能分级 + 伤病感知 + 个性化分化 + 3D 解剖图 + 6套主题</div>
+      <div class="label">差异化</div>
+      <div class="pros" style="color: #00D4FF;">唯一整合「训练+饮食+伤病+体态+AI校验」的健身 App</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 3. 功能矩阵 ==================== -->
+<div class="section">
+  <div class="section-title">三、功能优先级矩阵</div>
+  <table class="matrix-table">
+    <thead>
+      <tr>
+        <th>功能模块</th>
+        <th>具体功能</th>
+        <th>优先级</th>
+        <th>说明</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>用户档案</td>
+        <td>性别/年龄/身高/体重/PR数据</td>
+        <td class="priority-high">P0 必须</td>
+        <td>所有功能的数据基础</td>
+      </tr>
+      <tr>
+        <td>AI 智能分级</td>
+        <td>新手/进阶/老手自动校验</td>
+        <td class="priority-high">P0 必须</td>
+        <td>核心差异化功能</td>
+      </tr>
+      <tr>
+        <td>训练计划</td>
+        <td>三分化/五分化每日动作推荐</td>
+        <td class="priority-high">P0 必须</td>
+        <td>评委一眼看到的核心价值</td>
+      </tr>
+      <tr>
+        <td>饮食方案</td>
+        <td>体重×3碳水+蛋白质计算</td>
+        <td class="priority-high">P0 必须</td>
+        <td>AI 生成个性化食谱</td>
+      </tr>
+      <tr>
+        <td>3D 解剖图</td>
+        <td>动作对应肌群可视化</td>
+        <td class="priority-high">P0 必须</td>
+        <td>视觉亮点，增强理解</td>
+      </tr>
+      <tr>
+        <td>伤病恢复</td>
+        <td>自由描述+自动归类+康复动作</td>
+        <td class="priority-mid">P1 加分</td>
+        <td>差异化亮点</td>
+      </tr>
+      <tr>
+        <td>训练理论</td>
+        <td>次数区间/大小肌群/皮质醇警示</td>
+        <td class="priority-mid">P1 加分</td>
+        <td>教育价值，体现专业性</td>
+      </tr>
+      <tr>
+        <td>主题系统</td>
+        <td>性别×年龄 6套主题+自定义</td>
+        <td class="priority-mid">P1 加分</td>
+        <td>UI 差异化亮点</td>
+      </tr>
+      <tr>
+        <td>器械科普</td>
+        <td>各部位器械图文科普</td>
+        <td class="priority-low">P2 可选</td>
+        <td>丰富内容生态</td>
+      </tr>
+      <tr>
+        <td>抖音集成</td>
+        <td>搜索体态改善视频</td>
+        <td class="priority-low">P2 可选</td>
+        <td>后期接入</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ==================== 4. 用户流程 ==================== -->
+<div class="section">
+  <div class="section-title">四、用户核心流程</div>
+  <div class="flow-container">
+    <div class="flow-step">
+      <div class="num">1</div>
+      <div class="step-icon">📝</div>
+      <div class="step-title">填写档案</div>
+      <div class="step-desc">性别/年龄/身高体重</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="num">2</div>
+      <div class="step-icon">🏋️</div>
+      <div class="step-title">训练数据</div>
+      <div class="step-desc">PR数据/伤病描述</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="num">3</div>
+      <div class="step-icon">🎯</div>
+      <div class="step-title">目标设定</div>
+      <div class="step-desc">目标体重/增肌减脂</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="num">4</div>
+      <div class="step-icon">🧠</div>
+      <div class="step-title">AI 分析</div>
+      <div class="step-desc">智能分级+计划生成</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="num">5</div>
+      <div class="step-icon">📊</div>
+      <div class="step-title">Dashboard</div>
+      <div class="step-desc">训练/饮食/理论/恢复</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 5. 界面原型 ==================== -->
+<div class="section">
+  <div class="section-title">五、关键界面原型</div>
+  <div class="screens-grid">
+
+    <!-- 首页 Landing -->
+    <div class="screen-card">
+      <div class="screen-label">📱 首页 Landing</div>
+      <div class="screen-mockup">
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="phone-status-bar"><span>9:41</span><span>📶 </span></div>
+            <div style="text-align:center; padding: 20px 0;">
+              <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#00D4FF,#7C4DFF);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:24px;">️</div>
+              <div style="font-size:22px;font-weight:700;background:linear-gradient(135deg,#00D4FF,#7C4DFF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Builder</div>
+              <div style="font-size:10px;color:#778;margin-top:4px;">Build Yourself, For Yourself</div>
+              <div style="font-size:9px;color:#556;margin-top:2px;">发掘个人潜力，为了自己而练</div>
+            </div>
+            <div class="mock-grid-2" style="margin-top:12px;">
+              <div class="mock-card" style="text-align:center;padding:8px;">
+                <div style="font-size:18px;">🧠</div>
+                <div style="font-size:9px;color:#aaa;">AI 智能分级</div>
+              </div>
+              <div class="mock-card" style="text-align:center;padding:8px;">
+                <div style="font-size:18px;">📋</div>
+                <div style="font-size:9px;color:#aaa;">个性化计划</div>
+              </div>
+              <div class="mock-card" style="text-align:center;padding:8px;">
+                <div style="font-size:18px;">🍽️</div>
+                <div style="font-size:9px;color:#aaa;">精准饮食</div>
+              </div>
+              <div class="mock-card" style="text-align:center;padding:8px;">
+                <div style="font-size:18px;">🩺</div>
+                <div style="font-size:9px;color:#aaa;">伤病恢复</div>
+              </div>
+            </div>
+            <div class="mock-btn" style="width:100%;margin-top:16px;padding:10px;">开始创建你的档案 →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 注册 Step 1 -->
+    <div class="screen-card">
+      <div class="screen-label">📝 注册 Step 1 — 基本信息</div>
+      <div class="screen-mockup">
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="phone-status-bar"><span>9:41</span><span>📶 🔋</span></div>
+            <div style="display:flex;gap:4px;margin-bottom:12px;">
+              <div style="flex:1;height:4px;border-radius:2px;background:#00D4FF;"></div>
+              <div style="flex:1;height:4px;border-radius:2px;background:#2a3040;"></div>
+              <div style="flex:1;height:4px;border-radius:2px;background:#2a3040;"></div>
+              <div style="flex:1;height:4px;border-radius:2px;background:#2a3040;"></div>
+            </div>
+            <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:16px;">基本信息</div>
+            <div style="font-size:11px;color:#778;margin-bottom:8px;">性别</div>
+            <div style="display:flex;gap:8px;margin-bottom:12px;">
+              <div style="flex:1;padding:8px;border-radius:8px;background:rgba(0,212,255,0.15);border:1px solid #00D4FF;text-align:center;font-size:11px;color:#00D4FF;">♂ 男</div>
+              <div style="flex:1;padding:8px;border-radius:8px;background:#1a2035;border:1px solid #2a3040;text-align:center;font-size:11px;color:#778;">♀ 女</div>
+            </div>
+            <div style="font-size:11px;color:#778;margin-bottom:8px;">年龄</div>
+            <div class="mock-input">25 岁</div>
+            <div style="font-size:11px;color:#778;margin-bottom:8px;">身高</div>
+            <div class="mock-input">180 cm</div>
+            <div style="font-size:11px;color:#778;margin-bottom:8px;">体重</div>
+            <div class="mock-input">75 kg</div>
+            <div class="mock-btn" style="width:100%;margin-top:8px;">下一步 →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 注册 Step 2 -->
+    <div class="screen-card">
+      <div class="screen-label">️ 注册 Step 2 — 训练数据</div>
+      <div class="screen-mockup">
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="phone-status-bar"><span>9:41</span><span>📶 🔋</span></div>
+            <div style="display:flex;gap:4px;margin-bottom:12px;">
+              <div style="flex:1;height:4px;border-radius:2px;background:#00D4FF;"></div>
+              <div style="flex:1;height:4px;border-radius:2px;background:#00D4FF;"></div>
+              <div style="flex:1;height:4px;border-radius:2px;background:#2a3040;"></div>
+              <div style="flex:1;height:4px;border-radius:2px;background:#2a3040;"></div>
+            </div>
+            <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:12px;">训练数据</div>
+            <div style="font-size:11px;color:#778;margin-bottom:6px;">自我评估</div>
+            <div style="display:flex;gap:6px;margin-bottom:12px;">
+              <div style="flex:1;padding:6px;border-radius:8px;background:rgba(0,230,118,0.15);border:1px solid #00E676;text-align:center;font-size:10px;color:#00E676;">🐣 新手</div>
+              <div style="flex:1;padding:6px;border-radius:8px;background:#1a2035;border:1px solid #2a3040;text-align:center;font-size:10px;color:#778;">进阶</div>
+              <div style="flex:1;padding:6px;border-radius:8px;background:#1a2035;border:1px solid #2a3040;text-align:center;font-size:10px;color:#778;">🔥 老手</div>
+            </div>
+            <div style="font-size:9px;color:#00E676;margin-bottom:10px;font-style:italic;">每个大佬都曾是小白，从今天开始蜕变 🐣</div>
+            <div style="font-size:11px;color:#778;margin-bottom:6px;">每周训练次数</div>
+            <div class="mock-input">3 次/周</div>
+            <div style="font-size:11px;color:#778;margin-bottom:6px;">是否有不适？</div>
+            <div class="mock-input" style="min-height:50px;">描述你的问题... 🎤</div>
+            <div class="mock-btn" style="width:100%;margin-top:8px;">下一步 →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="screen-card">
+      <div class="screen-label">📊 Dashboard 主页</div>
+      <div class="screen-mockup">
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="phone-status-bar"><span>9:41</span><span>📶 🔋</span></div>
+            <div class="phone-header">
+              <div class="logo">Builder</div>
+              <div style="display:flex;gap:6px;">
+                <div style="width:20px;height:20px;border-radius:6px;background:#1a2035;display:flex;align-items:center;justify-content:center;font-size:10px;">⚙️</div>
+              </div>
+            </div>
+            <div style="font-size:14px;font-weight:700;color:#fff;">欢迎回来 💪</div>
+            <div style="font-size:10px;color:#778;margin-bottom:12px;">兄弟，今天也要为了自己而练！</div>
+            <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;">
+              <span class="mock-tag tag-success">级别: 进阶</span>
+              <span class="mock-tag tag-primary">目标: 增肌</span>
+              <span class="mock-tag tag-warning">体重: 75kg</span>
+            </div>
+            <div class="mock-grid-2">
+              <div class="mock-card" style="padding:8px;">
+                <div style="font-size:16px;">🏋️</div>
+                <div style="font-size:10px;font-weight:600;color:#fff;">今日训练</div>
+                <div style="font-size:8px;color:#778;">查看计划</div>
+              </div>
+              <div class="mock-card" style="padding:8px;">
+                <div style="font-size:16px;">🍽️</div>
+                <div style="font-size:10px;font-weight:600;color:#fff;">饮食方案</div>
+                <div style="font-size:8px;color:#778;">营养计划</div>
+              </div>
+              <div class="mock-card" style="padding:8px;">
+                <div style="font-size:16px;">📚</div>
+                <div style="font-size:10px;font-weight:600;color:#fff;">训练理论</div>
+                <div style="font-size:8px;color:#778;">科学知识</div>
+              </div>
+              <div class="mock-card" style="padding:8px;">
+                <div style="font-size:16px;">🩺</div>
+                <div style="font-size:10px;font-weight:600;color:#fff;">伤病恢复</div>
+                <div style="font-size:8px;color:#778;">疼痛分析</div>
+              </div>
+            </div>
+            <div style="margin-top:8px;">
+              <div class="mock-card" style="padding:8px;">
+                <div style="font-size:16px;">🏋️</div>
+                <div style="font-size:10px;font-weight:600;color:#fff;">器械科普</div>
+                <div style="font-size:8px;color:#778;">器械指南</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 训练计划 -->
+    <div class="screen-card">
+      <div class="screen-label">🏋️ 训练计划页</div>
+      <div class="screen-mockup">
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="phone-status-bar"><span>9:41</span><span>📶 </span></div>
+            <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:8px;">今日训练计划</div>
+            <div style="display:flex;gap:4px;overflow:hidden;margin-bottom:12px;">
+              <div style="padding:6px 8px;border-radius:8px;background:#1a2035;font-size:9px;color:#778;text-align:center;min-width:40px;">周一<br><b style="color:#fff;">胸</b></div>
+              <div style="padding:6px 8px;border-radius:8px;background:#1a2035;font-size:9px;color:#778;text-align:center;min-width:40px;">周二<br><b style="color:#fff;">背</b></div>
+              <div style="padding:6px 8px;border-radius:8px;background:linear-gradient(135deg,#00D4FF,#7C4DFF);font-size:9px;color:#fff;text-align:center;min-width:40px;">周三<br><b>腿</b><br><span style="font-size:7px;background:#FF5252;padding:1px 4px;border-radius:4px;">今天</span></div>
+              <div style="padding:6px 8px;border-radius:8px;background:#1a2035;font-size:9px;color:#778;text-align:center;min-width:40px;">周四<br><b style="color:#fff;">肩</b></div>
+              <div style="padding:6px 8px;border-radius:8px;background:#1a2035;font-size:9px;color:#778;text-align:center;min-width:40px;">周五<br><b style="color:#fff;">臂</b></div>
+            </div>
+            <div style="font-size:10px;color:#FFD740;margin-bottom:8px;">🩺 为你定制的改善动作</div>
+            <div class="mock-card" style="padding:8px;border-left:3px solid #FFD740;">
+              <div style="font-size:10px;font-weight:600;color:#fff;">面拉 Face Pull</div>
+              <div style="font-size:8px;color:#778;">改善圆肩/高低肩</div>
+              <div style="font-size:9px;color:#00D4FF;margin-top:4px;">3组 × 15-20次</div>
+            </div>
+            <div class="mock-card" style="padding:8px;">
+              <div style="display:flex;justify-content:space-between;">
+                <div>
+                  <span class="mock-tag tag-primary" style="font-size:8px;">腿部</span>
+                  <div style="font-size:10px;font-weight:600;color:#fff;">杠铃深蹲</div>
+                  <div style="font-size:8px;color:#778;">Barbell Squat</div>
+                </div>
+                <div style="text-align:right;">
+                  <div style="font-size:10px;font-weight:700;color:#00D4FF;">4组</div>
+                  <div style="font-size:8px;color:#778;">8-12次</div>
+                </div>
+              </div>
+              <div style="margin-top:6px;height:40px;background:#0d1220;border-radius:6px;display:flex;align-items:center;justify-content:center;">
+                <div style="font-size:8px;color:#556;">🦵 股四头肌/臀大肌 解剖图</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 饮食方案 -->
+    <div class="screen-card">
+      <div class="screen-label">🍽️ 饮食方案页</div>
+      <div class="screen-mockup">
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="phone-status-bar"><span>9:41</span><span>📶 🔋</span></div>
+            <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:8px;">个性化饮食方案</div>
+            <div class="mock-grid-2" style="margin-bottom:12px;">
+              <div class="mock-stat">
+                <div class="val" style="color:#00D4FF;">2,480</div>
+                <div class="label">每日热量 (kcal)</div>
+              </div>
+              <div class="mock-stat">
+                <div class="val" style="color:#00E676;">225g</div>
+                <div class="label">碳水化合物</div>
+              </div>
+              <div class="mock-stat">
+                <div class="val" style="color:#FFD740;">150g</div>
+                <div class="label">蛋白质</div>
+              </div>
+              <div class="mock-stat">
+                <div class="val" style="color:#FF5252;">69g</div>
+                <div class="label">脂肪</div>
+              </div>
+            </div>
+            <div style="font-size:11px;font-weight:600;color:#fff;margin-bottom:8px;">今日餐单</div>
+            <div class="mock-card" style="padding:8px;">
+              <div style="font-size:10px;font-weight:600;color:#00D4FF;">🌅 早餐 7:00</div>
+              <div style="font-size:9px;color:#aaa;">燕麦80g + 鸡蛋3个 + 香蕉1根</div>
+              <div style="font-size:8px;color:#778;">约 520 kcal</div>
+            </div>
+            <div class="mock-card" style="padding:8px;">
+              <div style="font-size:10px;font-weight:600;color:#FFD740;">☀️ 午餐 12:00</div>
+              <div style="font-size:9px;color:#aaa;">鸡胸肉200g + 米饭200g + 西兰花</div>
+              <div style="font-size:8px;color:#778;">约 780 kcal</div>
+            </div>
+            <div class="mock-card" style="padding:8px;">
+              <div style="font-size:10px;font-weight:600;color:#FF5252;">🌙 晚餐 18:00</div>
+              <div style="font-size:9px;color:#aaa;">三文鱼150g + 红薯150g + 蔬菜沙拉</div>
+              <div style="font-size:8px;color:#778;">约 650 kcal</div>
+            </div>
+            <div style="margin-top:8px;padding:8px;background:rgba(255,82,82,0.1);border-radius:8px;border:1px solid rgba(255,82,82,0.3);">
+              <div style="font-size:9px;color:#FF5252;">⚠️ 过度训练警示：有氧+无氧过量会导致皮质醇升高，建议每周休息1-2天</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 设置页 -->
+    <div class="screen-card">
+      <div class="screen-label">️ 设置页</div>
+      <div class="screen-mockup">
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="phone-status-bar"><span>9:41</span><span> 🔋</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+              <div style="font-size:16px;color:#fff;">←</div>
+              <div style="font-size:14px;font-weight:700;color:#fff;">设置</div>
+              <div style="font-size:10px;color:#00D4FF;">重置默认</div>
+            </div>
+            <div class="mock-card" style="padding:10px;display:flex;align-items:center;gap:10px;">
+              <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#00D4FF,#7C4DFF);"></div>
+              <div>
+                <div style="font-size:9px;color:#778;">当前主题</div>
+                <div style="font-size:11px;font-weight:600;color:#fff;">男性 · 青年</div>
+              </div>
+            </div>
+            <div style="font-size:11px;font-weight:600;color:#fff;margin:12px 0 8px;">背景颜色</div>
+            <div class="mock-card" style="padding:10px;display:flex;align-items:center;gap:10px;">
+              <div style="width:36px;height:36px;border-radius:8px;background:#0A0E17;border:2px solid #2a3040;"></div>
+              <div style="font-size:10px;color:#aaa;">自定义背景</div>
+            </div>
+            <div style="font-size:11px;font-weight:600;color:#fff;margin:12px 0 8px;">排版密度</div>
+            <div class="mock-card" style="padding:8px;display:flex;justify-content:space-between;align-items:center;border-color:#00D4FF;">
+              <div style="font-size:10px;color:#fff;">标准</div>
+              <div style="font-size:12px;color:#00D4FF;">✓</div>
+            </div>
+            <div class="mock-card" style="padding:8px;display:flex;justify-content:space-between;align-items:center;">
+              <div style="font-size:10px;color:#aaa;">紧凑</div>
+            </div>
+            <div class="mock-card" style="padding:8px;display:flex;justify-content:space-between;align-items:center;">
+              <div style="font-size:10px;color:#aaa;">宽松</div>
+            </div>
+            <div style="font-size:11px;font-weight:600;color:#fff;margin:12px 0 8px;">卡片风格</div>
+            <div class="mock-card" style="padding:8px;display:flex;justify-content:space-between;align-items:center;border-color:#00D4FF;">
+              <div style="font-size:10px;color:#fff;">圆润</div>
+              <div style="font-size:12px;color:#00D4FF;">✓</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== 6. 主题系统 ==================== -->
+<div class="section">
+  <div class="section-title">六、性别×年龄主题系统</div>
+  <div class="theme-showcase">
+    <div class="theme-swatch" style="background: #0A0E17; border-color: #00D4FF;">
+      <div class="theme-name" style="color: #00D4FF;">男 · 青年</div>
+      <div class="theme-colors">
+        <div class="color-dot" style="background: #00D4FF;"></div>
+        <div class="color-dot" style="background: #7C4DFF;"></div>
+        <div class="color-dot" style="background: #FF4081;"></div>
+      </div>
+      <div style="font-size:9px;color:#546E7A;margin-top:6px;">科技感</div>
+    </div>
+    <div class="theme-swatch" style="background: #1A1F2E; border-color: #4A90D9;">
+      <div class="theme-name" style="color: #4A90D9;">男 · 中年</div>
+      <div class="theme-colors">
+        <div class="color-dot" style="background: #4A90D9;"></div>
+        <div class="color-dot" style="background: #5B6ABF;"></div>
+        <div class="color-dot" style="background: #E8734A;"></div>
+      </div>
+      <div style="font-size:9px;color:#5C6478;margin-top:6px;">稳重低调</div>
+    </div>
+    <div class="theme-swatch" style="background: #1C1E1A; border-color: #6B8F71;">
+      <div class="theme-name" style="color: #6B8F71;">男 · 成熟</div>
+      <div class="theme-colors">
+        <div class="color-dot" style="background: #6B8F71;"></div>
+        <div class="color-dot" style="background: #8B7355;"></div>
+        <div class="color-dot" style="background: #C4956A;"></div>
+      </div>
+      <div style="font-size:9px;color:#6B7260;margin-top:6px;">沉稳经典</div>
+    </div>
+    <div class="theme-swatch" style="background: #1A0F1A; border-color: #F472B6;">
+      <div class="theme-name" style="color: #F472B6;">女 · 青年</div>
+      <div class="theme-colors">
+        <div class="color-dot" style="background: #F472B6;"></div>
+        <div class="color-dot" style="background: #C084FC;"></div>
+        <div class="color-dot" style="background: #FB923C;"></div>
+      </div>
+      <div style="font-size:9px;color:#9D6B8A;margin-top:6px;">甜美活力</div>
+    </div>
+    <div class="theme-swatch" style="background: #1E1520; border-color: #E8A0BF;">
+      <div class="theme-name" style="color: #E8A0BF;">女 · 中年</div>
+      <div class="theme-colors">
+        <div class="color-dot" style="background: #E8A0BF;"></div>
+        <div class="color-dot" style="background: #B8A9C9;"></div>
+        <div class="color-dot" style="background: #D4A0A0;"></div>
+      </div>
+      <div style="font-size:9px;color:#8A7080;margin-top:6px;">优雅知性</div>
+    </div>
+    <div class="theme-swatch" style="background: #1E1A17; border-color: #D4A88C;">
+      <div class="theme-name" style="color: #D4A88C;">女 · 成熟</div>
+      <div class="theme-colors">
+        <div class="color-dot" style="background: #D4A88C;"></div>
+        <div class="color-dot" style="background: #A8B5A0;"></div>
+        <div class="color-dot" style="background: #C9B1A0;"></div>
+      </div>
+      <div style="font-size:9px;color:#7A6E64;margin-top:6px;">温暖舒适</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 7. 技术架构 ==================== -->
+<div class="section">
+  <div class="section-title">七、技术架构</div>
+  <div class="arch-grid">
+    <div class="arch-card">
+      <div class="icon">⚛️</div>
+      <h3>前端框架</h3>
+      <p>Next.js 16 + TypeScript + Tailwind CSS v4，App Router 架构，支持 SSR/SSG。</p>
+      <div class="tags">
+        <span class="tag">Next.js 16</span>
+        <span class="tag">TypeScript</span>
+        <span class="tag">Tailwind v4</span>
+      </div>
+    </div>
+    <div class="arch-card">
+      <div class="icon">🎨</div>
+      <h3>主题系统</h3>
+      <p>CSS Variables 实现 6 套主题动态切换，支持用户自定义背景色、主题色、排版密度、卡片风格。</p>
+      <div class="tags">
+        <span class="tag">CSS Variables</span>
+        <span class="tag">ThemeProvider</span>
+        <span class="tag">localStorage</span>
+      </div>
+    </div>
+    <div class="arch-card">
+      <div class="icon">🧠</div>
+      <h3>AI 能力</h3>
+      <p>智能分级算法（4维度评分）、Mifflin-St Jeor 公式计算 BMR、关键词匹配自动归类伤病。</p>
+      <div class="tags">
+        <span class="tag">智能分级</span>
+        <span class="tag">BMR 计算</span>
+        <span class="tag">关键词归类</span>
+      </div>
+    </div>
+    <div class="arch-card">
+      <div class="icon"></div>
+      <h3>数据存储</h3>
+      <p>localStorage 本地存储用户档案和设置，无需后端，零成本部署。</p>
+      <div class="tags">
+        <span class="tag">localStorage</span>
+        <span class="tag">无后端</span>
+        <span class="tag">零成本</span>
+      </div>
+    </div>
+    <div class="arch-card">
+      <div class="icon"></div>
+      <h3>部署方案</h3>
+      <p>Vercel 一键部署，自动生成可访问链接，支持自定义域名。</p>
+      <div class="tags">
+        <span class="tag">Vercel</span>
+        <span class="tag">CDN 加速</span>
+        <span class="tag">自动 HTTPS</span>
+      </div>
+    </div>
+    <div class="arch-card">
+      <div class="icon">🎤</div>
+      <h3>特色功能</h3>
+      <p>Web Speech API 语音输入伤病描述，SVG 肌肉解剖图可视化，日历同步训练计划。</p>
+      <div class="tags">
+        <span class="tag">语音输入</span>
+        <span class="tag">SVG 解剖图</span>
+        <span class="tag">日历同步</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 8. AI 分级逻辑 ==================== -->
+<div class="section">
+  <div class="section-title">八、AI 智能分级算法</div>
+  <div style="background: #131a2b; border: 1px solid #1e2d4a; border-radius: 16px; padding: 24px;">
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px;">
+      <div style="text-align: center;">
+        <div style="font-size: 24px; font-weight: 700; color: #00D4FF;">25分</div>
+        <div style="font-size: 12px; color: #8899aa; margin-top: 4px;">训练年限</div>
+        <div style="font-size: 10px; color: #556; margin-top: 4px;">&lt;6月=0, 6-12月=10, 1-2年=18, &gt;2年=25</div>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 24px; font-weight: 700; color: #7C4DFF;">25分</div>
+        <div style="font-size: 12px; color: #8899aa; margin-top: 4px;">卧推/体重比</div>
+        <div style="font-size: 10px; color: #556; margin-top: 4px;">&lt;0.5=0, 0.5-1.0=10, 1.0-1.5=18, &gt;1.5=25</div>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 24px; font-weight: 700; color: #FF4081;">25分</div>
+        <div style="font-size: 12px; color: #8899aa; margin-top: 4px;">深蹲/体重比</div>
+        <div style="font-size: 10px; color: #556; margin-top: 4px;">&lt;0.8=0, 0.8-1.5=10, 1.5-2.0=18, &gt;2.0=25</div>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 24px; font-weight: 700; color: #FFD740;">25分</div>
+        <div style="font-size: 12px; color: #8899aa; margin-top: 4px;">训练频率</div>
+        <div style="font-size: 10px; color: #556; margin-top: 4px;">&lt;2次=0, 2-3次=10, 3-4次=18, &gt;4次=25</div>
+      </div>
+    </div>
+    <div style="display: flex; justify-content: center; gap: 24px; padding-top: 16px; border-top: 1px solid #1e2d4a;">
+      <div style="text-align: center;">
+        <div style="font-size: 18px; font-weight: 700; color: #00E676;">&lt; 30分</div>
+        <div style="font-size: 13px; color: #00E676;">🟢 新手</div>
+        <div style="font-size: 10px; color: #778;">全身训练 · 每周3次</div>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 18px; font-weight: 700; color: #FFD740;">30-65分</div>
+        <div style="font-size: 13px; color: #FFD740;">🟡 进阶</div>
+        <div style="font-size: 10px; color: #778;">三分化 · 每周3-4次</div>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 18px; font-weight: 700; color: #FF5252;">&gt; 65分</div>
+        <div style="font-size: 13px; color: #FF5252;">🔴 老手</div>
+        <div style="font-size: 10px; color: #778;">五分化 · 每周5次</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div style="text-align: center; padding: 40px 0 20px; border-top: 1px solid #1e2d4a; margin-top: 40px;">
+  <div style="font-size: 14px; color: #556;">Builder 健身 App — 产品原型图 v1.0</div>
+  <div style="font-size: 12px; color: #445; margin-top: 4px;">外滩黑客松 AI Coding 大赛 | 2026.08.05</div>
+  <div style="font-size: 11px; color: #334; margin-top: 4px;">Build Yourself, For Yourself 🏋️</div>
+</div>
+
+</body>
+</html>
