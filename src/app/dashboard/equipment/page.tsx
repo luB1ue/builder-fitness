@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-
 interface Equipment {
   id: string;
   name: string;
@@ -195,6 +194,7 @@ const difficultyColors: Record<string, string> = {
 
 export default function EquipmentGuidePage() {
   const [selectedCategory, setSelectedCategory] = useState("全部");
+  const [expandedImage, setExpandedImage] = useState<{ id: string; name: string; nameEn: string } | null>(null);
   
   const categories = ["全部", "胸部", "背部", "腿部", "肩部", "手臂", "核心"];
   
@@ -233,13 +233,21 @@ export default function EquipmentGuidePage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {filteredEquipment.map((eq, i) => (
           <div key={eq.id} className="card animate-fade-in" style={{ animationDelay: `${i * 0.05}s` }}>
-            {/* 器械图片占位 */}
-            <div className="w-full h-40 rounded-lg mb-3 flex items-center justify-center" style={{ background: "var(--surface-hover)" }}>
-              <div className="text-center">
-                <div className="text-4xl mb-2">{categoryIcons[eq.category]}</div>
-                <div className="text-xs text-text-muted">{eq.imagePlaceholder}</div>
-              </div>
-            </div>
+            {/* 器械图片 - 可点击放大 */}
+            <button
+              onClick={() => setExpandedImage({ id: eq.id, name: eq.name, nameEn: eq.nameEn })}
+              className="w-full h-40 rounded-lg mb-3 overflow-hidden cursor-pointer transition-transform hover:scale-[1.02] active:scale-[0.98] border border-transparent hover:border-[var(--primary)]/30"
+              style={{ background: "var(--surface-hover)" }}
+              title="点击放大查看"
+            >
+              <img
+                src={`/equipment/${eq.id}.png`}
+                alt={eq.name}
+                className="w-full h-full object-cover"
+                loading="lazy"
+                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+              />
+            </button>
             
             <div className="flex items-center gap-2 mb-2">
               <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={{ background: "var(--primary)20", color: "var(--primary)" }}>
@@ -273,6 +281,37 @@ export default function EquipmentGuidePage() {
           </div>
         ))}
       </div>
+
+      {/* 器械图片放大弹窗 */}
+      {expandedImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ background: "rgba(0,0,0,0.85)" }}
+          onClick={() => setExpandedImage(null)}
+        >
+          <div className="relative max-w-2xl w-full max-h-[90vh]" onClick={e => e.stopPropagation()}>
+            <button
+              onClick={() => setExpandedImage(null)}
+              className="absolute -top-10 right-0 text-white text-2xl w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/20 transition-colors z-10"
+            >
+              ✕
+            </button>
+            <div className="rounded-2xl overflow-hidden" style={{ background: "var(--surface)" }}>
+              <div className="p-3 border-b border-[var(--border)]">
+                <h3 className="font-bold text-white">{expandedImage.name}</h3>
+                <p className="text-xs text-text-muted">{expandedImage.nameEn}</p>
+              </div>
+              <div className="w-full" style={{ aspectRatio: "4/3" }}>
+                <img
+                  src={`/equipment/${expandedImage.id}.png`}
+                  alt={expandedImage.name}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 推荐资源 */}
       <div className="mt-8 card">
