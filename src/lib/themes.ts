@@ -1,0 +1,163 @@
+import { Gender, AgeGroup, ThemeColors, ThemeKey } from '@/types';
+
+export interface ThemeConfig extends ThemeColors {
+  fontFamily: string;       // 字体族
+  fontSizeBase: string;     // 基础字号
+  borderRadius: string;     // 圆角风格
+  cardPadding: string;      // 卡片内边距
+  layoutGap: string;        // 布局间距
+}
+
+export const themes: Record<ThemeKey, ThemeConfig> = {
+  // ===== 男性主题 =====
+  male_young: {
+    primary: '#00D4FF',
+    primaryLight: '#00E5FF',
+    primaryDark: '#00B8D4',
+    secondary: '#7C4DFF',
+    accent: '#FF4081',
+    background: '#0A0E17',
+    surface: '#131A2B',
+    surfaceHover: '#1A2340',
+    text: '#FFFFFF',
+    textSecondary: '#B0BEC5',
+    textMuted: '#546E7A',
+    border: '#1E2D4A',
+    success: '#00E676',
+    warning: '#FFD740',
+    danger: '#FF5252',
+    gradient: 'linear-gradient(135deg, #00D4FF 0%, #7C4DFF 100%)',
+    fontFamily: '"Geist", system-ui, -apple-system, sans-serif',
+    fontSizeBase: '15px',
+    borderRadius: '12px',
+    cardPadding: '20px',
+    layoutGap: '16px',
+  },
+  male_middle: {
+    primary: '#4A90D9',
+    primaryLight: '#6BA3E0',
+    primaryDark: '#357ABD',
+    secondary: '#5B6ABF',
+    accent: '#E8734A',
+    background: '#1A1F2E',
+    surface: '#242B3D',
+    surfaceHover: '#2E3650',
+    text: '#E8EAF0',
+    textSecondary: '#9BA3B5',
+    textMuted: '#5C6478',
+    border: '#2E3650',
+    success: '#4CAF50',
+    warning: '#FFB74D',
+    danger: '#EF5350',
+    gradient: 'linear-gradient(135deg, #4A90D9 0%, #5B6ABF 100%)',
+    fontFamily: '"Geist", system-ui, -apple-system, sans-serif',
+    fontSizeBase: '15px',
+    borderRadius: '10px',
+    cardPadding: '22px',
+    layoutGap: '18px',
+  },
+  male_mature: {
+    primary: '#6B8F71',
+    primaryLight: '#7FA885',
+    primaryDark: '#557A5B',
+    secondary: '#8B7355',
+    accent: '#C4956A',
+    background: '#1C1E1A',
+    surface: '#2A2D26',
+    surfaceHover: '#353930',
+    text: '#D4D8CC',
+    textSecondary: '#9BA38E',
+    textMuted: '#6B7260',
+    border: '#3A3E34',
+    success: '#7CB342',
+    warning: '#D4A843',
+    danger: '#C75B3A',
+    gradient: 'linear-gradient(135deg, #6B8F71 0%, #8B7355 100%)',
+    fontFamily: 'Georgia, "Times New Roman", serif',
+    fontSizeBase: '16px',
+    borderRadius: '8px',
+    cardPadding: '24px',
+    layoutGap: '20px',
+  },
+  // ===== 女性主题 =====
+  female_young: {
+    primary: '#F472B6',
+    primaryLight: '#F9A8D4',
+    primaryDark: '#EC4899',
+    secondary: '#C084FC',
+    accent: '#FB923C',
+    background: '#1A0F1A',
+    surface: '#251525',
+    surfaceHover: '#331D33',
+    text: '#FDF2F8',
+    textSecondary: '#FBCFE8',
+    textMuted: '#9D6B8A',
+    border: '#4A2040',
+    success: '#34D399',
+    warning: '#FBBF24',
+    danger: '#F87171',
+    gradient: 'linear-gradient(135deg, #F472B6 0%, #C084FC 100%)',
+    fontFamily: '"Geist", system-ui, -apple-system, sans-serif',
+    fontSizeBase: '15px',
+    borderRadius: '16px',
+    cardPadding: '20px',
+    layoutGap: '16px',
+  },
+  female_middle: {
+    primary: '#E8A0BF',
+    primaryLight: '#F0C1D8',
+    primaryDark: '#D4849A',
+    secondary: '#B8A9C9',
+    accent: '#D4A0A0',
+    background: '#1E1520',
+    surface: '#2C2030',
+    surfaceHover: '#3A2A40',
+    text: '#F5EEF3',
+    textSecondary: '#D4B8CC',
+    textMuted: '#8A7080',
+    border: '#40304A',
+    success: '#86C9A0',
+    warning: '#E8C87A',
+    danger: '#D48080',
+    gradient: 'linear-gradient(135deg, #E8A0BF 0%, #B8A9C9 100%)',
+    fontFamily: '"Geist", system-ui, -apple-system, sans-serif',
+    fontSizeBase: '15px',
+    borderRadius: '14px',
+    cardPadding: '22px',
+    layoutGap: '18px',
+  },
+  female_mature: {
+    primary: '#D4A88C',
+    primaryLight: '#E0BFA8',
+    primaryDark: '#BC8B6A',
+    secondary: '#A8B5A0',
+    accent: '#C9B1A0',
+    background: '#1E1A17',
+    surface: '#2D2722',
+    surfaceHover: '#3D3530',
+    text: '#E8DDD4',
+    textSecondary: '#B8A89A',
+    textMuted: '#7A6E64',
+    border: '#3D3530',
+    success: '#A5B88A',
+    warning: '#D4B87A',
+    danger: '#C48070',
+    gradient: 'linear-gradient(135deg, #D4A88C 0%, #A8B5A0 100%)',
+    fontFamily: 'Georgia, "Times New Roman", serif',
+    fontSizeBase: '16px',
+    borderRadius: '10px',
+    cardPadding: '24px',
+    layoutGap: '20px',
+  },
+};
+
+export function getTheme(gender: Gender, ageGroup: AgeGroup): ThemeConfig {
+  const key: ThemeKey = `${gender}_${ageGroup}`;
+  return themes[key];
+}
+
+export function getAgeGroup(age: number): AgeGroup {
+  if (age <= 30) return 'young';
+  if (age <= 45) return 'middle';
+  return 'mature';
+}
