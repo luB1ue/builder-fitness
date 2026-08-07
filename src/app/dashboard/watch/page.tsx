@@ -227,13 +227,68 @@ export default function WatchSyncPage() {
         </div>
       </div>
 
-      {/* 安装说明 */}
-      <div className="mt-4 p-4 rounded-xl text-center" style={{ background: 'rgba(0,212,255,0.1)', border: '1px solid rgba(0,212,255,0.3)' }}>
-        <div className="text-lg mb-1">📲</div>
-        <div className="text-sm font-medium mb-1">安装到手机</div>
-        <div className="text-xs opacity-60">
-          iOS: Safari → 分享 → 添加到主屏幕<br />
-          Android: Chrome → 菜单 → 安装应用
+      {/* iOS 安装指南 */}
+      <div className="mt-4 p-4 rounded-xl" style={{ background: 'rgba(0,212,255,0.1)', border: '1px solid rgba(0,212,255,0.3)' }}>
+        <div className="text-center mb-3">
+          <div className="text-lg mb-1">📲</div>
+          <div className="text-sm font-medium">安装到手机（PWA）</div>
+          <div className="text-xs opacity-60 mt-1">安装后可像原生 App 一样使用，支持手表数据同步</div>
+        </div>
+
+        <div className="space-y-3">
+          {/* iOS 步骤 */}
+          <div className="p-3 rounded-lg" style={{ background: 'rgba(255,255,255,0.05)' }}>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-lg"></span>
+              <span className="text-sm font-medium">iOS / iPhone / iPad</span>
+            </div>
+            <div className="space-y-2 text-xs">
+              <div className="flex items-start gap-2">
+                <span className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold" style={{ background: 'var(--primary)', color: '#000' }}>1</span>
+                <span className="opacity-80">使用 <strong>Safari</strong> 打开本页面（不支持 Chrome/微信浏览器）</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold" style={{ background: 'var(--primary)', color: '#000' }}>2</span>
+                <span className="opacity-80">点击底部中间的 <strong>分享按钮</strong>（方框+向上箭头图标）</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold" style={{ background: 'var(--primary)', color: '#000' }}>3</span>
+                <span className="opacity-80">向下滑动，找到并点击 <strong>"添加到主屏幕"</strong></span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold" style={{ background: 'var(--primary)', color: '#000' }}>4</span>
+                <span className="opacity-80">点击右上角 <strong>"添加"</strong>，桌面会出现 Builder 图标</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Android 步骤 */}
+          <div className="p-3 rounded-lg" style={{ background: 'rgba(255,255,255,0.05)' }}>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-lg"></span>
+              <span className="text-sm font-medium">Android</span>
+            </div>
+            <div className="space-y-2 text-xs">
+              <div className="flex items-start gap-2">
+                <span className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold" style={{ background: 'var(--primary)', color: '#000' }}>1</span>
+                <span className="opacity-80">使用 <strong>Chrome</strong> 打开本页面</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold" style={{ background: 'var(--primary)', color: '#000' }}>2</span>
+                <span className="opacity-80">点击右上角 <strong>菜单（⋮）</strong></span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold" style={{ background: 'var(--primary)', color: '#000' }}>3</span>
+                <span className="opacity-80">点击 <strong>"安装应用"</strong> 或 <strong>"添加到主屏幕"</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-3 pt-3 border-t border-[var(--border)] text-center">
+          <div className="text-[10px] opacity-50">
+            安装后打开 App，进入此页面即可同步手表数据
+          </div>
         </div>
       </div>
     </div>
