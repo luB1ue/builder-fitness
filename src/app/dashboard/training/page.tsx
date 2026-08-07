@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { UserProfile, FitnessLevel, TrainingPlan } from "@/types";
 import { generateTrainingPlan, exerciseDatabase } from "@/lib/exercises";
-import { getAnatomyComponent } from "@/components/AnatomyDiagram";
 
 const STORAGE_KEY = "builder_profile";
 
@@ -14,6 +13,7 @@ export default function TrainingPage() {
   // 根据今天星期几自动定位（计划数组：0=周一 ... 6=周日）
   const todayIndex = (new Date().getDay() + 6) % 7; // JS: 0=周日, 1=周一... → 转为 0=周一...6=周日
   const [selectedDay, setSelectedDay] = useState(todayIndex);
+  const [expandedAnatomy, setExpandedAnatomy] = useState<{ id: string; muscleGroup: string; subMuscle: string; name: string } | null>(null);
 
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
@@ -90,10 +90,21 @@ export default function TrainingPage() {
               .filter(ex => ex.isRehab && profile.painAreas.includes(ex.targetPain || ""))
               .map((ex, i) => (
                 <div key={ex.id} className="card p-4" style={{ animationDelay: `${i * 0.05}s` }}>
-                  {/* 3D 解剖图 */}
-                  <div className="w-full h-36 rounded-lg mb-3 overflow-hidden" style={{ background: "var(--surface-hover)" }}>
-                    {getAnatomyComponent(ex.muscleGroup, ex.subMuscle)}
-                  </div>
+                  {/* 动作配图 - 可点击放大 */}
+                  <button
+                    onClick={() => setExpandedAnatomy({ id: ex.id, muscleGroup: ex.muscleGroup, subMuscle: ex.subMuscle, name: ex.name })}
+                    className="w-full h-36 rounded-lg mb-3 overflow-hidden cursor-pointer transition-transform hover:scale-[1.02] active:scale-[0.98] border border-transparent hover:border-[var(--warning)]/30"
+                    style={{ background: "var(--surface-hover)" }}
+                    title="点击放大查看"
+                  >
+                    <img
+                      src={`/exercises/${ex.id}.png`}
+                      alt={ex.name}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                    />
+                  </button>
                   <div className="flex items-center gap-1.5 mb-1">
                     <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={{ background: "var(--warning)20", color: "var(--warning)" }}>
                       改善 {ex.targetPain}
@@ -141,37 +152,48 @@ export default function TrainingPage() {
             <p className="text-text-secondary">{today.notes}</p>
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {today.exercises.map((ex, i) => (
-              <div key={ex.id} className="p-4 rounded-xl transition-all" style={{ background: "var(--surface-hover)", animationDelay: `${i * 0.05}s` }}>
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={{ background: "var(--primary)20", color: "var(--primary)" }}>
+              <div key={ex.id} className="p-4 rounded-xl transition-all flex flex-col" style={{ background: "var(--surface-hover)", animationDelay: `${i * 0.05}s` }}>
+                <div className="flex items-start justify-between mb-2">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <span className="text-xs px-2 py-0.5 rounded-full font-medium flex-shrink-0" style={{ background: "var(--primary)20", color: "var(--primary)" }}>
                         {ex.muscleGroup}
                       </span>
-                      <span className="text-xs text-text-muted">{ex.subMuscle}</span>
+                      <span className="text-xs text-text-muted truncate">{ex.subMuscle}</span>
                     </div>
-                    <h3 className="font-bold">{ex.name}</h3>
-                    <p className="text-xs text-text-muted">{ex.nameEn}</p>
+                    <h3 className="font-bold text-sm truncate">{ex.name}</h3>
+                    <p className="text-[10px] text-text-muted truncate">{ex.nameEn}</p>
                   </div>
-                  <div className="text-right ml-4">
-                    <div className="text-sm font-bold" style={{ color: "var(--primary)" }}>{ex.sets} 组</div>
-                    <div className="text-xs text-text-muted">{ex.reps} 次</div>
+                  <div className="text-right ml-2 flex-shrink-0">
+                    <div className="text-sm font-bold" style={{ color: "var(--primary)" }}>{ex.sets}组</div>
+                    <div className="text-xs text-text-muted">{ex.reps}次</div>
                   </div>
                 </div>
-                {/* 3D 解剖图 */}
-                <div className="w-full h-32 rounded-lg mt-3 overflow-hidden" style={{ background: "var(--background)" }}>
-                  {getAnatomyComponent(ex.muscleGroup, ex.subMuscle)}
-                </div>
-                <p className="text-sm text-text-secondary mt-2">{ex.description}</p>
-                <div className="mt-2 p-2 rounded-lg text-xs" style={{ background: "var(--background)" }}>
+                {/* 动作配图 - 可点击放大 */}
+                <button
+                  onClick={() => setExpandedAnatomy({ id: ex.id, muscleGroup: ex.muscleGroup, subMuscle: ex.subMuscle, name: ex.name })}
+                  className="w-full h-28 rounded-lg mt-1 overflow-hidden cursor-pointer transition-transform hover:scale-[1.02] active:scale-[0.98] border border-transparent hover:border-[var(--primary)]/30"
+                  style={{ background: "var(--background)" }}
+                  title="点击放大查看"
+                >
+                  <img
+                    src={`/exercises/${ex.id}.png`}
+                    alt={ex.name}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                  />
+                </button>
+                <p className="text-xs text-text-secondary mt-2 line-clamp-2 flex-1">{ex.description}</p>
+                <div className="mt-1.5 p-1.5 rounded-lg text-[10px]" style={{ background: "var(--background)" }}>
                   <span className="text-warning">💡 </span>
                   <span className="text-text-muted">{ex.tips}</span>
                 </div>
-                <div className="flex items-center gap-2 mt-2">
-                  <span className="text-xs text-text-muted">器械：{ex.equipment}</span>
-                  <span className="text-xs px-1.5 py-0.5 rounded" style={{
+                <div className="flex items-center gap-2 mt-1.5">
+                  <span className="text-[10px] text-text-muted">器械：{ex.equipment}</span>
+                  <span className="text-[10px] px-1.5 py-0.5 rounded flex-shrink-0" style={{
                     background: ex.difficulty === "beginner" ? "var(--success)20" : ex.difficulty === "intermediate" ? "var(--warning)20" : "var(--danger)20",
                     color: ex.difficulty === "beginner" ? "var(--success)" : ex.difficulty === "intermediate" ? "var(--warning)" : "var(--danger)",
                   }}>
@@ -190,6 +212,41 @@ export default function TrainingPage() {
           </div>
         )}
       </div>
+
+      {/* 解剖图放大弹窗 */}
+      {expandedAnatomy && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ background: "rgba(0,0,0,0.85)" }}
+          onClick={() => setExpandedAnatomy(null)}
+        >
+          <div className="relative max-w-2xl w-full max-h-[90vh]" onClick={e => e.stopPropagation()}>
+            <button
+              onClick={() => setExpandedAnatomy(null)}
+              className="absolute -top-10 right-0 text-white text-2xl w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/20 transition-colors z-10"
+            >
+              ✕
+            </button>
+            <div className="rounded-2xl overflow-hidden" style={{ background: "var(--surface)" }}>
+              <div className="p-3 border-b border-[var(--border)]">
+                <h3 className="font-bold text-white">{expandedAnatomy.name}</h3>
+                <p className="text-xs text-text-muted">{expandedAnatomy.muscleGroup} · {expandedAnatomy.subMuscle}</p>
+              </div>
+              <div className="w-full" style={{ aspectRatio: "5/6" }}>
+                {expandedAnatomy.id ? (
+                  <img
+                    src={`/exercises/${expandedAnatomy.id}.png`}
+                    alt={expandedAnatomy.name}
+                    className="w-full h-full object-contain"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-text-muted text-sm">暂无配图</div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 训练理论快捷入口 */}
       <div className="mt-6 grid grid-cols-2 gap-3">
