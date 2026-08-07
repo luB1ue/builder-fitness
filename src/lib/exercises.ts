@@ -2,19 +2,75 @@ import { Exercise, TrainingPlan, FitnessLevel } from '@/types';
 
 // ============ 动作数据库 ============
 export const exerciseDatabase: Exercise[] = [
-  // ===== 胸部 =====
+  // ===== 胸部 (14个) =====
   {
-    id: 'bench_press',
-    name: '杠铃卧推',
-    nameEn: 'Barbell Bench Press',
+    id: 'pushup',
+    name: '标准俯卧撑',
+    nameEn: 'Push-up',
     muscleGroup: '胸部',
     subMuscle: '整体胸大肌',
-    equipment: '杠铃',
+    equipment: '自重',
+    difficulty: 'beginner',
+    sets: 3,
+    reps: '12-20',
+    description: '经典自重动作，全面激活胸大肌、三角肌前束和肱三头肌。',
+    tips: '双手略宽于肩，身体呈一条直线，下落至胸部接近地面。',
+    imagePlaceholder: '/exercises/pushup.png',
+  },
+  {
+    id: 'machine_chest_press',
+    name: '坐姿器械推胸',
+    nameEn: 'Machine Chest Press',
+    muscleGroup: '胸部',
+    subMuscle: '整体胸大肌',
+    equipment: '推胸机',
+    difficulty: 'beginner',
+    sets: 3,
+    reps: '12-15',
+    description: '固定轨迹推胸，安全易学，适合新手建立胸肌发力感。',
+    tips: '背部贴紧靠背，手柄推至手臂微屈即可，不要锁死肘关节。',
+    imagePlaceholder: '/exercises/machine_chest_press.png',
+  },
+  {
+    id: 'pec_deck',
+    name: '蝴蝶机夹胸',
+    nameEn: 'Pec Deck Fly',
+    muscleGroup: '胸部',
+    subMuscle: '中缝',
+    equipment: '蝴蝶机',
+    difficulty: 'beginner',
+    sets: 3,
+    reps: '12-15',
+    description: '固定轨迹夹胸，孤立刺激胸肌中缝，增加胸肌分离度。',
+    tips: '手肘微屈固定，用肘部画弧线向中间合拢，顶峰收缩1-2秒。',
+    imagePlaceholder: '/exercises/pec_deck.png',
+  },
+  {
+    id: 'incline_pushup',
+    name: '上斜俯卧撑',
+    nameEn: 'Incline Push-up',
+    muscleGroup: '胸部',
+    subMuscle: '下束',
+    equipment: '自重',
+    difficulty: 'beginner',
+    sets: 3,
+    reps: '12-20',
+    description: '双手撑在抬高平面上，降低难度，重点刺激胸大肌下束。',
+    tips: '手撑在凳子或台阶上，身体保持直线，适合力量较弱的新手。',
+    imagePlaceholder: '/exercises/incline_pushup.png',
+  },
+  {
+    id: 'bench_press',
+    name: '杠铃平板卧推',
+    nameEn: 'Barbell Bench Press',
+    muscleGroup: '胸部',
+    subMuscle: '中束',
+    equipment: '杠铃 + 平板凳',
     difficulty: 'intermediate',
     sets: 4,
     reps: '6-10',
-    description: '经典复合动作，全面刺激胸大肌，同时锻炼三角肌前束和肱三头肌。',
-    tips: '肩胛骨收紧下沉，杠铃下放至乳头连线位置，推起时呼气。',
+    description: '胸部训练王牌动作，全面刺激胸大肌中束，同时锻炼三角肌前束和肱三头肌。',
+    tips: '肩胛骨后缩下沉贴紧凳面，杠铃下放至乳头连线，小臂始终垂直地面。',
     imagePlaceholder: '/exercises/bench_press.png',
   },
   {
@@ -25,25 +81,11 @@ export const exerciseDatabase: Exercise[] = [
     subMuscle: '上束',
     equipment: '哑铃 + 上斜凳',
     difficulty: 'intermediate',
-    sets: 3,
+    sets: 4,
     reps: '8-12',
-    description: '30-45度上斜角度，重点刺激胸大肌上束，打造饱满上胸。',
-    tips: '角度不宜超过45度，否则三角肌前束代偿过多。',
-    imagePlaceholder: '/exercises/incline_press.png',
-  },
-  {
-    id: 'cable_fly_low',
-    name: '低位绳索夹胸',
-    nameEn: 'Low Cable Fly',
-    muscleGroup: '胸部',
-    subMuscle: '上束',
-    equipment: '绳索机',
-    difficulty: 'beginner',
-    sets: 3,
-    reps: '12-15',
-    description: '从下往上夹胸，重点刺激上胸内侧，塑造胸肌中缝。',
-    tips: '手肘微屈固定，想象用肘部画弧线向上合拢。',
-    imagePlaceholder: '/exercises/cable_fly_low.png',
+    description: '30-45度上斜角度，重点刺激胸大肌上束（锁骨部），打造饱满上胸。',
+    tips: '角度不宜超过45度否则三角肌前束代偿过多，哑铃推至最高点不要完全伸直手臂。',
+    imagePlaceholder: '/exercises/incline_dumbbell_press.png',
   },
   {
     id: 'flat_dumbbell_fly',
@@ -51,27 +93,13 @@ export const exerciseDatabase: Exercise[] = [
     nameEn: 'Flat Dumbbell Fly',
     muscleGroup: '胸部',
     subMuscle: '中束',
-    equipment: '哑铃',
-    difficulty: 'beginner',
+    equipment: '哑铃 + 平板凳',
+    difficulty: 'intermediate',
     sets: 3,
-    reps: '12-15',
-    description: '孤立动作，充分拉伸胸大肌中部纤维，增加胸肌宽度。',
-    tips: '下放时感受胸肌拉伸，不要过度下放以免肩关节受伤。',
-    imagePlaceholder: '/exercises/dumbbell_fly.png',
-  },
-  {
-    id: 'decline_pushup',
-    name: '下斜俯卧撑',
-    nameEn: 'Decline Push-up',
-    muscleGroup: '胸部',
-    subMuscle: '下束',
-    equipment: '自重',
-    difficulty: 'beginner',
-    sets: 3,
-    reps: '12-20',
-    description: '脚部抬高，重心前移，重点刺激胸大肌下束。',
-    tips: '身体保持一条直线，核心收紧，下落至胸部接近地面。',
-    imagePlaceholder: '/exercises/decline_pushup.png',
+    reps: '10-15',
+    description: '孤立动作，充分拉伸胸大肌中部纤维，增加胸肌宽度和外沿。',
+    tips: '手肘微屈15度固定不变，下放至胸肌有拉伸感即可，不要过度下放伤肩。',
+    imagePlaceholder: '/exercises/flat_dumbbell_fly.png',
   },
   {
     id: 'dips',
@@ -83,39 +111,95 @@ export const exerciseDatabase: Exercise[] = [
     difficulty: 'intermediate',
     sets: 3,
     reps: '8-12',
-    description: '身体前倾做臂屈伸，重点刺激胸大肌下束和外沿。',
-    tips: '身体前倾约30度，肘部向外展开，下落至大臂平行地面。',
+    description: '身体前倾做臂屈伸，重点刺激胸大肌下束和外沿，打造胸肌下缘线条。',
+    tips: '身体前倾约30度，肘部向外展开45度，下落至大臂平行地面。',
     imagePlaceholder: '/exercises/dips.png',
   },
-  // ===== 背部 =====
   {
-    id: 'pull_up',
-    name: '引体向上',
-    nameEn: 'Pull-up',
-    muscleGroup: '背部',
-    subMuscle: '背阔肌',
-    equipment: '单杠',
+    id: 'cable_fly_low',
+    name: '龙门架低位夹胸',
+    nameEn: 'Low Cable Fly',
+    muscleGroup: '胸部',
+    subMuscle: '上束',
+    equipment: '龙门架（低位滑轮）',
     difficulty: 'intermediate',
+    sets: 3,
+    reps: '12-15',
+    description: '从下往上夹胸，重点刺激上胸和胸肌中缝，塑造上胸饱满度。',
+    tips: '掌心朝上握D型把手，手肘微屈固定，向上画弧线至下巴高度合拢。',
+    imagePlaceholder: '/exercises/cable_fly_low.png',
+  },
+  {
+    id: 'cable_fly_high',
+    name: '龙门架高位夹胸',
+    nameEn: 'High Cable Fly',
+    muscleGroup: '胸部',
+    subMuscle: '下束',
+    equipment: '龙门架（高位滑轮）',
+    difficulty: 'intermediate',
+    sets: 3,
+    reps: '12-15',
+    description: '从上往下夹胸，重点刺激胸大肌下束和中缝，刻画胸肌下缘。',
+    tips: '掌心朝下握D型把手，身体微前倾，向下画弧线至腹部前方合拢。',
+    imagePlaceholder: '/exercises/cable_fly_high.png',
+  },
+  {
+    id: 'incline_barbell_press',
+    name: '上斜杠铃卧推',
+    nameEn: 'Incline Barbell Press',
+    muscleGroup: '胸部',
+    subMuscle: '上束',
+    equipment: '杠铃 + 上斜凳',
+    difficulty: 'advanced',
+    sets: 4,
+    reps: '6-8',
+    description: '上胸复合动作之王，可承载大重量，全面刺激胸大肌锁骨部。',
+    tips: '杠铃下放至锁骨下方，推起轨迹略向后上方，需要保护者辅助。',
+    imagePlaceholder: '/exercises/incline_barbell_press.png',
+  },
+  {
+    id: 'weighted_dips',
+    name: '负重双杠臂屈伸',
+    nameEn: 'Weighted Dips',
+    muscleGroup: '胸部',
+    subMuscle: '下束',
+    equipment: '双杠 + 负重腰带',
+    difficulty: 'advanced',
     sets: 4,
     reps: '6-10',
-    description: '经典自重复合动作，全面刺激背阔肌，打造V型背部。',
-    tips: '正握宽握距，下拉时想象用肘部触碰腰部两侧。',
-    imagePlaceholder: '/exercises/pull_up.png',
+    description: '在双杠臂屈伸基础上增加负重，强力刺激胸大肌下束和三头肌。',
+    tips: '负重腰带挂杠铃片，身体前倾30度，控制下放速度，不要弹震。',
+    imagePlaceholder: '/exercises/weighted_dips.png',
   },
   {
-    id: 'barbell_row',
-    name: '杠铃划船',
-    nameEn: 'Barbell Row',
-    muscleGroup: '背部',
-    subMuscle: '中背部',
-    equipment: '杠铃',
+    id: 'decline_pushup',
+    name: '下斜俯卧撑',
+    nameEn: 'Decline Push-up',
+    muscleGroup: '胸部',
+    subMuscle: '上束',
+    equipment: '自重',
     difficulty: 'intermediate',
-    sets: 4,
-    reps: '8-10',
-    description: '俯身杠铃划船，全面刺激中背部厚度，包括斜方肌中下束和菱形肌。',
-    tips: '背部保持平直，杠铃沿大腿拉向腹部，顶峰收缩1秒。',
-    imagePlaceholder: '/exercises/barbell_row.png',
+    sets: 3,
+    reps: '10-15',
+    description: '脚部抬高增加上胸负荷，无需器械即可强化上胸。',
+    tips: '脚放在凳子或台阶上，双手撑地，身体保持直线。',
+    imagePlaceholder: '/exercises/decline_pushup.png',
   },
+  {
+    id: 'svend_press',
+    name: '斯文推胸',
+    nameEn: 'Svend Press',
+    muscleGroup: '胸部',
+    subMuscle: '中缝',
+    equipment: '杠铃片',
+    difficulty: 'beginner',
+    sets: 3,
+    reps: '12-15',
+    description: '双手合握杠铃片向前推，强力挤压胸肌中缝，适合热身或收尾。',
+    tips: '两片杠铃片夹在掌心之间，用力互推的同时向前推出，感受中缝挤压。',
+    imagePlaceholder: '/exercises/svend_press.png',
+  },
+  // ===== 背部 (14个) =====
   {
     id: 'lat_pulldown',
     name: '高位下拉',
@@ -126,8 +210,8 @@ export const exerciseDatabase: Exercise[] = [
     difficulty: 'beginner',
     sets: 3,
     reps: '10-12',
-    description: '引体向上的器械替代动作，适合新手建立背部发力感。',
-    tips: '宽握，下拉至锁骨位置，感受背阔肌收缩。',
+    description: '引体向上的器械替代，适合新手建立背部发力感和背阔肌宽度。',
+    tips: '宽握，下拉至锁骨位置，感受背阔肌收缩，不要用手臂硬拉。',
     imagePlaceholder: '/exercises/lat_pulldown.png',
   },
   {
@@ -140,25 +224,151 @@ export const exerciseDatabase: Exercise[] = [
     difficulty: 'beginner',
     sets: 3,
     reps: '10-12',
-    description: '坐姿划船动作，重点刺激中背部厚度，改善圆肩体态。',
-    tips: '挺胸收腹，拉回时肩骨后缩夹紧。',
+    description: '坐姿水平拉动作，重点刺激中背部厚度，改善圆肩体态。',
+    tips: '挺胸收腹，拉回时肩胛骨后缩夹紧，感受菱形肌收缩。',
     imagePlaceholder: '/exercises/seated_row.png',
   },
-  // ===== 腿部 =====
   {
-    id: 'barbell_squat',
-    name: '杠铃深蹲',
-    nameEn: 'Barbell Squat',
-    muscleGroup: '腿部',
-    subMuscle: '股四头肌/臀大肌',
-    equipment: '杠铃',
-    difficulty: 'advanced',
+    id: 'assisted_pullup',
+    name: '助力引体向上',
+    nameEn: 'Assisted Pull-up',
+    muscleGroup: '背部',
+    subMuscle: '背阔肌',
+    equipment: '助力引体机',
+    difficulty: 'beginner',
+    sets: 3,
+    reps: '8-12',
+    description: '通过配重辅助完成引体向上，逐步建立背部力量。',
+    tips: '选择合适的辅助重量，正握宽握距，下拉时肘部指向腰部两侧。',
+    imagePlaceholder: '/exercises/assisted_pullup.png',
+  },
+  {
+    id: 'single_arm_row',
+    name: '单臂哑铃划船',
+    nameEn: 'Single Arm Dumbbell Row',
+    muscleGroup: '背部',
+    subMuscle: '背阔肌',
+    equipment: '哑铃 + 平板凳',
+    difficulty: 'beginner',
+    sets: 3,
+    reps: '10-12',
+    description: '单臂划船可纠正左右不平衡，重点刺激背阔肌下部。',
+    tips: '一手一膝撑凳，背部平直，哑铃拉向髋部，顶峰收缩1秒。',
+    imagePlaceholder: '/exercises/single_arm_row.png',
+  },
+  {
+    id: 'pull_up',
+    name: '引体向上',
+    nameEn: 'Pull-up',
+    muscleGroup: '背部',
+    subMuscle: '背阔肌',
+    equipment: '单杠',
+    difficulty: 'intermediate',
     sets: 4,
     reps: '6-10',
-    description: '力量训练之王，全面刺激下肢肌群，促进全身激素分泌。',
-    tips: '脚尖微外八，膝盖与脚尖方向一致，蹲至大腿低于平行线。',
-    imagePlaceholder: '/exercises/barbell_squat.png',
+    description: '经典自重复合动作，全面刺激背阔肌，打造V型背部宽度。',
+    tips: '正握宽握距，下拉时想象用肘部触碰腰部两侧，不要借力摆动。',
+    imagePlaceholder: '/exercises/pull_up.png',
   },
+  {
+    id: 'barbell_row',
+    name: '杠铃俯身划船',
+    nameEn: 'Barbell Row',
+    muscleGroup: '背部',
+    subMuscle: '中背部',
+    equipment: '杠铃',
+    difficulty: 'intermediate',
+    sets: 4,
+    reps: '8-10',
+    description: '俯身杠铃划船，全面刺激中背部厚度，包括斜方肌中下束和菱形肌。',
+    tips: '俯身约45度，背部平直，杠铃沿大腿拉向腹部，顶峰收缩1秒。',
+    imagePlaceholder: '/exercises/barbell_row.png',
+  },
+  {
+    id: 'tbar_row',
+    name: 'T杠划船',
+    nameEn: 'T-Bar Row',
+    muscleGroup: '背部',
+    subMuscle: '中背部',
+    equipment: 'T杠划船机',
+    difficulty: 'intermediate',
+    sets: 4,
+    reps: '8-12',
+    description: '介于杠铃划船和器械划船之间，可承载较大重量，全面增厚背部。',
+    tips: '俯身约45度，双手握T杠，拉向腹部，感受中背部收缩。',
+    imagePlaceholder: '/exercises/tbar_row.png',
+  },
+  {
+    id: 'chest_supported_row',
+    name: '俯身器械划船',
+    nameEn: 'Chest Supported Row',
+    muscleGroup: '背部',
+    subMuscle: '中背部',
+    equipment: '俯身划船机',
+    difficulty: 'intermediate',
+    sets: 3,
+    reps: '10-12',
+    description: '胸部有支撑的划船动作，减少下背部压力，精准刺激中背部。',
+    tips: '胸部贴紧靠垫，拉回时肩胛骨后缩，控制离心阶段。',
+    imagePlaceholder: '/exercises/chest_supported_row.png',
+  },
+  {
+    id: 'straight_arm_pulldown',
+    name: '直臂下压',
+    nameEn: 'Straight Arm Pulldown',
+    muscleGroup: '背部',
+    subMuscle: '背阔肌',
+    equipment: '龙门架（高位滑轮+长杆）',
+    difficulty: 'intermediate',
+    sets: 3,
+    reps: '12-15',
+    description: '孤立刺激背阔肌的极佳动作，不涉及二头肌，纯背阔肌发力。',
+    tips: '双手正握长杆，手臂伸直，从头顶画弧下压至大腿前方，屈髋约45度。',
+    imagePlaceholder: '/exercises/straight_arm_pulldown.png',
+  },
+  {
+    id: 'weighted_pullup',
+    name: '负重引体向上',
+    nameEn: 'Weighted Pull-up',
+    muscleGroup: '背部',
+    subMuscle: '背阔肌',
+    equipment: '单杠 + 负重腰带',
+    difficulty: 'advanced',
+    sets: 4,
+    reps: '5-8',
+    description: '引体向上进阶版，负重强力刺激背阔肌，提升背部绝对力量。',
+    tips: '腰带悬挂杠铃片，控制下放速度，不要借力摆动。',
+    imagePlaceholder: '/exercises/weighted_pullup.png',
+  },
+  {
+    id: 'meadows_row',
+    name: '单臂杠铃划船',
+    nameEn: 'Meadows Row',
+    muscleGroup: '背部',
+    subMuscle: '背阔肌',
+    equipment: '杠铃（地雷管）',
+    difficulty: 'advanced',
+    sets: 3,
+    reps: '8-10',
+    description: '侧身单臂杠铃划船，独特角度深度刺激背阔肌下部。',
+    tips: '杠铃一端固定，侧身站立，单臂从侧面拉向部。',
+    imagePlaceholder: '/exercises/meadows_row.png',
+  },
+  {
+    id: 'rack_pull',
+    name: '架上硬拉',
+    nameEn: 'Rack Pull',
+    muscleGroup: '背部',
+    subMuscle: '斜方肌/竖脊肌',
+    equipment: '杠铃 + 深蹲架',
+    difficulty: 'advanced',
+    sets: 4,
+    reps: '5-8',
+    description: '从膝盖高度起始的硬拉变式，可承载超大重量，增厚上背部和斜方肌。',
+    tips: '杠铃置于深蹲架安全销上（膝盖高度），硬拉至锁定，感受上背部收缩。',
+    imagePlaceholder: '/exercises/rack_pull.png',
+  },
+  // ===== 腿部 (14个) =====
   {
     id: 'leg_press',
     name: '腿举',
@@ -170,8 +380,64 @@ export const exerciseDatabase: Exercise[] = [
     sets: 4,
     reps: '10-12',
     description: '深蹲的器械替代，对腰部压力更小，适合新手和伤病恢复期。',
-    tips: '脚距与肩同宽，膝盖不要内扣，下放至90度。',
+    tips: '脚距与肩同宽，膝盖不要内扣，下放至90度，不要锁死膝关节。',
     imagePlaceholder: '/exercises/leg_press.png',
+  },
+  {
+    id: 'goblet_squat',
+    name: '高脚杯深蹲',
+    nameEn: 'Goblet Squat',
+    muscleGroup: '腿部',
+    subMuscle: '股四头肌/臀大肌',
+    equipment: '哑铃/壶铃',
+    difficulty: 'beginner',
+    sets: 3,
+    reps: '10-15',
+    description: '双手捧哑铃于胸前深蹲，学习正确深蹲模式的最佳入门动作。',
+    tips: '哑铃贴紧胸口，蹲至大腿低于平行线，手肘推膝盖向外。',
+    imagePlaceholder: '/exercises/goblet_squat.png',
+  },
+  {
+    id: 'leg_extension',
+    name: '坐姿腿屈伸',
+    nameEn: 'Leg Extension',
+    muscleGroup: '腿部',
+    subMuscle: '股四头肌',
+    equipment: '腿屈伸机',
+    difficulty: 'beginner',
+    sets: 3,
+    reps: '12-15',
+    description: '孤立刺激股四头肌，刻画大腿前侧线条，适合热身或收尾。',
+    tips: '动作缓慢控制，顶峰收缩1-2秒，不要借力踢起。',
+    imagePlaceholder: '/exercises/leg_extension.png',
+  },
+  {
+    id: 'leg_curl',
+    name: '俯卧腿弯举',
+    nameEn: 'Lying Leg Curl',
+    muscleGroup: '腿部',
+    subMuscle: '绳肌',
+    equipment: '腿弯举机',
+    difficulty: 'beginner',
+    sets: 3,
+    reps: '12-15',
+    description: '孤立动作，专注刺激绳肌，预防膝盖受伤，平衡股四头肌发展。',
+    tips: '动作缓慢控制，顶峰收缩1-2秒，不要抬起臀部。',
+    imagePlaceholder: '/exercises/leg_curl.png',
+  },
+  {
+    id: 'barbell_squat',
+    name: '杠铃深蹲',
+    nameEn: 'Barbell Squat',
+    muscleGroup: '腿部',
+    subMuscle: '股四头肌/臀大肌',
+    equipment: '杠铃 + 深蹲架',
+    difficulty: 'intermediate',
+    sets: 4,
+    reps: '6-10',
+    description: '力量训练之王，全面刺激下肢肌群，促进全身激素分泌。',
+    tips: '脚尖微外八，膝盖与脚尖方向一致，蹲至大腿低于平行线，核心收紧。',
+    imagePlaceholder: '/exercises/barbell_squat.png',
   },
   {
     id: 'romanian_deadlift',
@@ -181,40 +447,124 @@ export const exerciseDatabase: Exercise[] = [
     subMuscle: '绳肌/臀部',
     equipment: '杠铃',
     difficulty: 'intermediate',
-    sets: 3,
+    sets: 4,
     reps: '8-12',
-    description: '重点刺激腘绳肌和臀大肌，改善臀腿比例。',
-    tips: '微屈膝，杠铃沿腿部下放，感受大腿后侧拉伸。',
+    description: '重点刺激绳肌和臀大肌，改善臀腿比例，强化后链肌群。',
+    tips: '微屈膝，杠铃沿腿部下放，感受大腿后侧拉伸，背部始终平直。',
     imagePlaceholder: '/exercises/romanian_deadlift.png',
   },
   {
-    id: 'leg_curl',
-    name: '俯卧腿弯举',
-    nameEn: 'Lying Leg Curl',
+    id: 'bulgarian_split_squat',
+    name: '保加利亚分腿蹲',
+    nameEn: 'Bulgarian Split Squat',
     muscleGroup: '腿部',
-    subMuscle: '腘绳肌',
-    equipment: '腿弯举机',
-    difficulty: 'beginner',
+    subMuscle: '股四头肌/臀大肌',
+    equipment: '哑铃 + 平板凳',
+    difficulty: 'intermediate',
     sets: 3,
-    reps: '12-15',
-    description: '孤立动作，专注刺激腘绳肌，预防膝盖受伤。',
-    tips: '动作缓慢控制，顶峰收缩1-2秒。',
-    imagePlaceholder: '/exercises/leg_curl.png',
+    reps: '10-12',
+    description: '单腿深蹲变式，纠正左右不平衡，深度刺激股四头肌和臀大肌。',
+    tips: '后脚放在凳子上，前腿蹲至大腿平行地面，躯干微前倾更多刺激臀部。',
+    imagePlaceholder: '/exercises/bulgarian_split_squat.png',
   },
-  // ===== 肩部 =====
   {
-    id: 'overhead_press',
-    name: '杠铃推举',
-    nameEn: 'Overhead Press',
-    muscleGroup: '肩部',
-    subMuscle: '三角肌前束/中束',
-    equipment: '杠铃',
+    id: 'walking_lunge',
+    name: '哑铃行走箭步蹲',
+    nameEn: 'Walking Lunge',
+    muscleGroup: '腿部',
+    subMuscle: '股四头肌/臀大肌',
+    equipment: '哑铃',
+    difficulty: 'intermediate',
+    sets: 3,
+    reps: '每侧10-12步',
+    description: '动态单腿动作，全面刺激下肢，同时考验平衡和核心稳定性。',
+    tips: '每步跨出后前腿屈膝至90度，后腿膝盖接近地面，躯干保持直立。',
+    imagePlaceholder: '/exercises/walking_lunge.png',
+  },
+  {
+    id: 'hip_thrust',
+    name: '臀推',
+    nameEn: 'Hip Thrust',
+    muscleGroup: '腿部',
+    subMuscle: '臀大肌',
+    equipment: '杠铃 + 平板凳',
     difficulty: 'intermediate',
     sets: 4,
-    reps: '6-10',
-    description: '经典肩部复合动作，打造宽厚肩膀。',
-    tips: '核心收紧，杠铃从锁骨推至头顶正上方，不要过度后仰。',
-    imagePlaceholder: '/exercises/overhead_press.png',
+    reps: '10-12',
+    description: '臀大肌激活度最高的动作，打造饱满臀部，改善臀腿比例。',
+    tips: '上背靠在凳沿，杠铃置于髋部，推至身体呈一条直线，顶峰夹紧臀部。',
+    imagePlaceholder: '/exercises/hip_thrust.png',
+  },
+  {
+    id: 'hack_squat',
+    name: '哈克深蹲',
+    nameEn: 'Hack Squat',
+    muscleGroup: '腿部',
+    subMuscle: '股四头肌',
+    equipment: '哈克深蹲机',
+    difficulty: 'intermediate',
+    sets: 4,
+    reps: '8-12',
+    description: '固定轨迹深蹲，背部有支撑，可安全地大重量刺激股四头肌。',
+    tips: '背部贴紧靠背，脚距略窄于肩，蹲至大腿低于平行线。',
+    imagePlaceholder: '/exercises/hack_squat.png',
+  },
+  {
+    id: 'front_squat',
+    name: '前蹲',
+    nameEn: 'Front Squat',
+    muscleGroup: '腿部',
+    subMuscle: '股四头肌',
+    equipment: '杠铃 + 深蹲架',
+    difficulty: 'advanced',
+    sets: 4,
+    reps: '6-8',
+    description: '杠铃置于前三角肌上的深蹲变式，更大程度刺激股四头肌，考验核心和踝关节灵活性。',
+    tips: '杠铃置于前三角肌上，手肘高抬，躯干更直立，蹲至大腿低于平行线。',
+    imagePlaceholder: '/exercises/front_squat.png',
+  },
+  {
+    id: 'conventional_deadlift',
+    name: '传统硬拉',
+    nameEn: 'Conventional Deadlift',
+    muscleGroup: '腿部',
+    subMuscle: '后链/臀大肌/竖脊肌',
+    equipment: '杠铃',
+    difficulty: 'advanced',
+    sets: 4,
+    reps: '5-6',
+    description: '三大项之一，全面刺激后链肌群，提升全身绝对力量。',
+    tips: '杠铃贴腿拉起，髋部和肩部同时上升，锁定时刻意收缩臀部。',
+    imagePlaceholder: '/exercises/conventional_deadlift.png',
+  },
+  {
+    id: 'calf_raise',
+    name: '站姿提踵',
+    nameEn: 'Standing Calf Raise',
+    muscleGroup: '腿部',
+    subMuscle: '腓肠肌',
+    equipment: '提踵机/史密斯机',
+    difficulty: 'beginner',
+    sets: 4,
+    reps: '15-20',
+    description: '孤立刺激小腿腓肠肌，改善小腿围度。',
+    tips: '脚尖朝前，提踵至最高点收缩1-2秒，缓慢下放至最大拉伸。',
+    imagePlaceholder: '/exercises/calf_raise.png',
+  },
+  // ===== 肩部 (12个) =====
+  {
+    id: 'dumbbell_shoulder_press',
+    name: '哑铃推举',
+    nameEn: 'Dumbbell Shoulder Press',
+    muscleGroup: '肩部',
+    subMuscle: '三角肌前束/中束',
+    equipment: '哑铃',
+    difficulty: 'beginner',
+    sets: 3,
+    reps: '10-12',
+    description: '坐姿哑铃推举，比杠铃推举更友好，全面刺激三角肌前束和中束。',
+    tips: '背部贴紧靠背，哑铃从耳侧推至头顶，不要完全锁死肘关节。',
+    imagePlaceholder: '/exercises/dumbbell_shoulder_press.png',
   },
   {
     id: 'lateral_raise',
@@ -227,7 +577,7 @@ export const exerciseDatabase: Exercise[] = [
     sets: 4,
     reps: '12-15',
     description: '孤立动作，重点刺激三角肌中束，增加肩宽视觉效果。',
-    tips: '手肘微屈，想象倒水动作，不要耸肩。',
+    tips: '手肘微屈，想象倒水动作，不要耸肩，不要借力摆动。',
     imagePlaceholder: '/exercises/lateral_raise.png',
   },
   {
@@ -241,10 +591,108 @@ export const exerciseDatabase: Exercise[] = [
     sets: 3,
     reps: '15-20',
     description: '刺激三角肌后束和肩袖肌群，改善圆肩体态的必做动作。',
-    tips: '绳索调至面部高度，拉向面部，外旋肩关节。',
+    tips: '绳索调至面部高度，拉向面部，外旋肩关节，感受肩胛骨后缩。',
     imagePlaceholder: '/exercises/face_pull.png',
   },
-  // ===== 手臂 =====
+  {
+    id: 'rear_delt_fly',
+    name: '俯身哑铃飞鸟',
+    nameEn: 'Bent-over Rear Delt Fly',
+    muscleGroup: '肩部',
+    subMuscle: '三角肌后束',
+    equipment: '哑铃',
+    difficulty: 'beginner',
+    sets: 3,
+    reps: '12-15',
+    description: '俯身飞鸟孤立刺激三角肌后束，改善圆肩，平衡肩部发展。',
+    tips: '俯身约45度，手肘微屈，向两侧展开至手臂平行地面。',
+    imagePlaceholder: '/exercises/rear_delt_fly.png',
+  },
+  {
+    id: 'overhead_press',
+    name: '杠铃推举',
+    nameEn: 'Overhead Press',
+    muscleGroup: '肩部',
+    subMuscle: '三角肌前束/中束',
+    equipment: '杠铃',
+    difficulty: 'intermediate',
+    sets: 4,
+    reps: '6-10',
+    description: '经典肩部复合动作，打造宽厚肩膀，提升上肢推力量。',
+    tips: '核心收紧，杠铃从锁骨推至头顶正上方，不要过度后仰。',
+    imagePlaceholder: '/exercises/overhead_press.png',
+  },
+  {
+    id: 'arnold_press',
+    name: '阿诺德推举',
+    nameEn: 'Arnold Press',
+    muscleGroup: '肩部',
+    subMuscle: '三角肌前束/中束/后束',
+    equipment: '哑铃',
+    difficulty: 'intermediate',
+    sets: 3,
+    reps: '10-12',
+    description: '施瓦辛格标志性动作，旋转推举全面刺激三角肌三个束。',
+    tips: '起始掌心朝自己，推起过程中旋转至掌心朝前，顶点手臂伸直。',
+    imagePlaceholder: '/exercises/arnold_press.png',
+  },
+  {
+    id: 'cable_lateral_raise',
+    name: '绳索侧平举',
+    nameEn: 'Cable Lateral Raise',
+    muscleGroup: '肩部',
+    subMuscle: '三角肌中束',
+    equipment: '龙门架（低位滑轮）',
+    difficulty: 'intermediate',
+    sets: 3,
+    reps: '12-15',
+    description: '绳索提供持续张力，比哑铃侧平举更能保持全程肌肉紧张。',
+    tips: '绳索从身后绕过，单臂侧平举，身体微倾向对侧。',
+    imagePlaceholder: '/exercises/cable_lateral_raise.png',
+  },
+  {
+    id: 'upright_row',
+    name: '直立划船',
+    nameEn: 'Upright Row',
+    muscleGroup: '肩部',
+    subMuscle: '三角肌中束/斜方肌',
+    equipment: '杠铃/哑铃',
+    difficulty: 'intermediate',
+    sets: 3,
+    reps: '10-12',
+    description: '垂直拉动作，同时刺激三角肌中束和斜方肌。',
+    tips: '握距略宽于肩，沿身体拉至胸部高度，手肘高于手腕。',
+    imagePlaceholder: '/exercises/upright_row.png',
+  },
+  {
+    id: 'machine_shoulder_press',
+    name: '器械推肩',
+    nameEn: 'Machine Shoulder Press',
+    muscleGroup: '肩部',
+    subMuscle: '三角肌前束/中束',
+    equipment: '推肩机',
+    difficulty: 'beginner',
+    sets: 3,
+    reps: '10-12',
+    description: '固定轨迹推肩，安全易学，适合新手建立肩部发力感。',
+    tips: '背部贴紧靠背，手柄推至手臂微屈，控制离心阶段。',
+    imagePlaceholder: '/exercises/machine_shoulder_press.png',
+  },
+  {
+    id: 'pec_deck_reverse',
+    name: '蝴蝶机反向飞鸟',
+    nameEn: 'Reverse Pec Deck',
+    muscleGroup: '肩部',
+    subMuscle: '三角肌后束',
+    equipment: '蝴蝶机',
+    difficulty: 'beginner',
+    sets: 3,
+    reps: '12-15',
+    description: '反向使用蝴蝶机，孤立刺激三角肌后束，改善圆肩体态。',
+    tips: '反向坐，手臂伸直贴紧靠垫，向后展开至手臂平行地面。',
+    imagePlaceholder: '/exercises/pec_deck_reverse.png',
+  },
+  // ===== 手臂 (12个) =====
   {
     id: 'barbell_curl',
     name: '杠铃弯举',
@@ -264,7 +712,7 @@ export const exerciseDatabase: Exercise[] = [
     name: '绳索下压',
     nameEn: 'Tricep Pushdown',
     muscleGroup: '手臂',
-    subMuscle: '肱三头肌',
+    subMuscle: '三头肌',
     equipment: '绳索机',
     difficulty: 'beginner',
     sets: 3,
@@ -273,7 +721,119 @@ export const exerciseDatabase: Exercise[] = [
     tips: '大臂贴紧身体，只动前臂，下压至手臂完全伸直。',
     imagePlaceholder: '/exercises/tricep_pushdown.png',
   },
-  // ===== 核心 =====
+  {
+    id: 'dumbbell_curl',
+    name: '哑铃交替弯举',
+    nameEn: 'Alternating Dumbbell Curl',
+    muscleGroup: '手臂',
+    subMuscle: '肱二头肌',
+    equipment: '哑铃',
+    difficulty: 'beginner',
+    sets: 3,
+    reps: '10-12',
+    description: '交替弯举可纠正左右不平衡，旋转手腕增加二头肌峰收缩。',
+    tips: '掌心朝上起始，弯举过程中旋转至掌心朝自己，顶峰收缩1秒。',
+    imagePlaceholder: '/exercises/dumbbell_curl.png',
+  },
+  {
+    id: 'hammer_curl',
+    name: '锤式弯举',
+    nameEn: 'Hammer Curl',
+    muscleGroup: '手臂',
+    subMuscle: '肱肌/肱二头肌',
+    equipment: '哑铃',
+    difficulty: 'beginner',
+    sets: 3,
+    reps: '10-12',
+    description: '掌心相对的弯举变式，同时刺激肱桡肌和前臂，增加手臂整体围度。',
+    tips: '掌心始终相对，像握锤子一样，大臂固定不动。',
+    imagePlaceholder: '/exercises/hammer_curl.png',
+  },
+  {
+    id: 'overhead_tricep_extension',
+    name: '过头臂屈伸',
+    nameEn: 'Overhead Tricep Extension',
+    muscleGroup: '手臂',
+    subMuscle: '肱三头肌长头',
+    equipment: '哑铃/绳索',
+    difficulty: 'intermediate',
+    sets: 3,
+    reps: '10-12',
+    description: '过头动作充分拉伸三头肌长头，全面刺激三头肌三个头。',
+    tips: '双手握哑铃举过头顶，屈肘下放至脑后，大臂贴近耳朵固定。',
+    imagePlaceholder: '/exercises/overhead_tricep_extension.png',
+  },
+  {
+    id: 'skull_crusher',
+    name: '仰卧臂屈伸',
+    nameEn: 'Skull Crusher',
+    muscleGroup: '手臂',
+    subMuscle: '肱三头肌',
+    equipment: '杠铃/哑铃 + 平板凳',
+    difficulty: 'intermediate',
+    sets: 3,
+    reps: '10-12',
+    description: '仰卧杠铃臂屈伸，强力刺激肱三头肌，增加手臂后侧围度。',
+    tips: '杠铃下放至额头上方，只动前臂，大臂垂直地面固定不动。',
+    imagePlaceholder: '/exercises/skull_crusher.png',
+  },
+  {
+    id: 'preacher_curl',
+    name: '牧师凳弯举',
+    nameEn: 'Preacher Curl',
+    muscleGroup: '手臂',
+    subMuscle: '肱二头肌',
+    equipment: '哑铃/杠铃 + 牧师凳',
+    difficulty: 'intermediate',
+    sets: 3,
+    reps: '10-12',
+    description: '手臂有支撑的弯举，消除借力，孤立刺激肱二头肌。',
+    tips: '上臂贴紧斜板，弯举至顶峰收缩，缓慢下放至手臂接近伸直。',
+    imagePlaceholder: '/exercises/preacher_curl.png',
+  },
+  {
+    id: 'concentration_curl',
+    name: '集中弯举',
+    nameEn: 'Concentration Curl',
+    muscleGroup: '手臂',
+    subMuscle: '肱二头肌峰',
+    equipment: '哑铃',
+    difficulty: 'intermediate',
+    sets: 3,
+    reps: '10-12',
+    description: '坐姿单臂集中弯举，消除身体借力，精准刺激二头肌峰。',
+    tips: '手肘抵在大腿内侧，只动前臂，顶峰收缩时用力挤压二头肌。',
+    imagePlaceholder: '/exercises/concentration_curl.png',
+  },
+  {
+    id: 'rope_pushdown',
+    name: '绳索过头下压',
+    nameEn: 'Rope Overhead Pushdown',
+    muscleGroup: '手臂',
+    subMuscle: '肱三头肌',
+    equipment: '绳索机',
+    difficulty: 'intermediate',
+    sets: 3,
+    reps: '12-15',
+    description: '绳索下压变式，底部可分开双手增加三头肌外侧头刺激。',
+    tips: '用绳索把手，下压至底部分开双手向外，感受三头肌外侧收缩。',
+    imagePlaceholder: '/exercises/rope_pushdown.png',
+  },
+  {
+    id: 'ez_bar_curl',
+    name: 'EZ杠弯举',
+    nameEn: 'EZ Bar Curl',
+    muscleGroup: '手臂',
+    subMuscle: '肱二头肌',
+    equipment: 'EZ杠铃',
+    difficulty: 'intermediate',
+    sets: 3,
+    reps: '10-12',
+    description: 'EZ杠铃的弯曲设计减少手腕压力，比直杠更舒适地完成弯举。',
+    tips: '握EZ杠内侧弯曲处，大臂固定，弯举至顶峰收缩。',
+    imagePlaceholder: '/exercises/ez_bar_curl.png',
+  },
+  // ===== 核心 (10个) =====
   {
     id: 'plank',
     name: '平板支撑',
@@ -299,8 +859,92 @@ export const exerciseDatabase: Exercise[] = [
     sets: 3,
     reps: '15-20',
     description: '负重卷腹动作，有效刺激腹直肌，打造六块腹肌。',
-    tips: '用腹部力量卷曲身体，不是用手臂拉绳索。',
+    tips: '用腹部力量卷曲身体，不是用手臂拉绳索，想象用胸骨靠近骨盆。',
     imagePlaceholder: '/exercises/cable_crunch.png',
+  },
+  {
+    id: 'crunch',
+    name: '卷腹',
+    nameEn: 'Crunch',
+    muscleGroup: '核心',
+    subMuscle: '腹直肌',
+    equipment: '自重',
+    difficulty: 'beginner',
+    sets: 3,
+    reps: '15-20',
+    description: '基础腹肌动作，刺激腹直肌上部，适合新手入门。',
+    tips: '下背部贴紧地面，用腹部力量卷起肩胛骨离开地面，不要用手拉脖子。',
+    imagePlaceholder: '/exercises/crunch.png',
+  },
+  {
+    id: 'russian_twist',
+    name: '俄罗斯转体',
+    nameEn: 'Russian Twist',
+    muscleGroup: '核心',
+    subMuscle: '腹斜肌',
+    equipment: '自重/哑铃',
+    difficulty: 'beginner',
+    sets: 3,
+    reps: '每侧15次',
+    description: '旋转动作刺激腹斜肌，打造腰部线条，提升核心旋转稳定性。',
+    tips: '坐姿微后仰，双脚离地，双手持重物左右转体，用腹部控制旋转。',
+    imagePlaceholder: '/exercises/russian_twist.png',
+  },
+  {
+    id: 'hanging_leg_raise',
+    name: '悬垂举腿',
+    nameEn: 'Hanging Leg Raise',
+    muscleGroup: '核心',
+    subMuscle: '腹直肌下部',
+    equipment: '单杠',
+    difficulty: 'intermediate',
+    sets: 3,
+    reps: '10-15',
+    description: '悬垂状态下抬腿，强力刺激腹直肌下部，提升核心力量。',
+    tips: '双手握杠悬垂，用腹部力量将腿抬至水平或更高，不要借力摆动。',
+    imagePlaceholder: '/exercises/hanging_leg_raise.png',
+  },
+  {
+    id: 'ab_wheel',
+    name: '健腹轮',
+    nameEn: 'Ab Wheel Rollout',
+    muscleGroup: '核心',
+    subMuscle: '腹直肌/腹横肌',
+    equipment: '健腹轮',
+    difficulty: 'intermediate',
+    sets: 3,
+    reps: '8-12',
+    description: '高难度核心动作，全面刺激腹直肌和深层核心，考验整体稳定性。',
+    tips: '跪姿起始，缓慢向前滚动至身体接近地面，用腹部力量拉回。',
+    imagePlaceholder: '/exercises/ab_wheel.png',
+  },
+  {
+    id: 'side_plank',
+    name: '侧平板支撑',
+    nameEn: 'Side Plank',
+    muscleGroup: '核心',
+    subMuscle: '腹斜肌/腹横肌',
+    equipment: '自重',
+    difficulty: 'beginner',
+    sets: 3,
+    reps: '每侧30-45秒',
+    description: '侧向等长收缩，强化腹斜肌和核心侧向稳定性。',
+    tips: '侧卧用前臂支撑，身体呈一条直线，臀部不要下沉。',
+    imagePlaceholder: '/exercises/side_plank.png',
+  },
+  {
+    id: 'weighted_plank',
+    name: '负重平板支撑',
+    nameEn: 'Weighted Plank',
+    muscleGroup: '核心',
+    subMuscle: '腹横肌',
+    equipment: '杠铃片',
+    difficulty: 'advanced',
+    sets: 3,
+    reps: '45-60秒',
+    description: '在平板支撑基础上增加负重，强力强化深层核心稳定性。',
+    tips: '杠铃片放在背部中央，保持标准平板支撑姿势，不要塌腰。',
+    imagePlaceholder: '/exercises/weighted_plank.png',
   },
   // ===== 康复/体态改善动作 =====
   {
@@ -434,18 +1078,57 @@ export const exerciseDatabase: Exercise[] = [
 ];
 
 // ============ 训练计划生成器 ============
+
+// 每个训练日的动作模板：[主肌群, 辅助肌群, 最大动作数]
+interface DayTemplate {
+  primary: string[];    // 主要训练肌群
+  secondary: string[];  // 辅助训练肌群
+  maxExercises: number; // 最大动作数
+}
+
+// 不同级别的每日训练模板
+const dayTemplates: Record<FitnessLevel, Record<string, DayTemplate>> = {
+  beginner: {
+    '全身A': { primary: ['胸部', '背部', '腿部'], secondary: ['核心'], maxExercises: 6 },
+    '全身B': { primary: ['肩部', '腿部', '背部'], secondary: ['手臂', '核心'], maxExercises: 6 },
+  },
+  intermediate: {
+    '胸+三头': { primary: ['胸部'], secondary: ['手臂'], maxExercises: 7 },
+    '背+二头': { primary: ['背部'], secondary: ['手臂'], maxExercises: 7 },
+    '腿+核心': { primary: ['腿部'], secondary: ['核心'], maxExercises: 7 },
+    '肩+手臂': { primary: ['肩部'], secondary: ['手臂'], maxExercises: 7 },
+  },
+  advanced: {
+    '胸': { primary: ['胸部'], secondary: [], maxExercises: 8 },
+    '背': { primary: ['背部'], secondary: [], maxExercises: 8 },
+    '腿(股四)': { primary: ['腿部'], secondary: ['核心'], maxExercises: 8 },
+    '肩': { primary: ['肩部'], secondary: [], maxExercises: 7 },
+    '手臂+核心': { primary: ['手臂'], secondary: ['核心'], maxExercises: 8 },
+    '腿(后链)': { primary: ['腿部'], secondary: ['核心'], maxExercises: 7 },
+  },
+};
+
+// 每个级别的每周训练分化
+const weeklySplits: Record<FitnessLevel, string[]> = {
+  beginner: ['全身A', '全身B', '休息', '全身A', '全身B', '有氧/休息', '休息'],
+  intermediate: ['胸+三头', '背+二头', '腿+核心', '休息', '肩+手臂', '有氧+核心', '休息'],
+  advanced: ['胸', '背', '腿(股四)', '肩', '手臂+核心', '腿(后链)', '休息'],
+};
+
+// 每个级别的动作难度范围
+const difficultyRange: Record<FitnessLevel, string[]> = {
+  beginner: ['beginner'],
+  intermediate: ['beginner', 'intermediate'],
+  advanced: ['beginner', 'intermediate', 'advanced'],
+};
+
 export function generateTrainingPlan(
   level: FitnessLevel,
   goalType: 'muscle_gain' | 'fat_loss' | 'recomp',
   painAreas: string[]
 ): TrainingPlan[] {
-  const splits: Record<FitnessLevel, string[]> = {
-    beginner: ['全身A', '全身B', '休息', '全身A', '全身B', '有氧/休息', '休息'],
-    intermediate: ['胸+三头', '背+二头', '腿+核心', '休息', '肩+手臂', '有氧+核心', '休息'],
-    advanced: ['胸', '背', '腿(股四)', '肩', '手臂+核心', '腿(后链)', '休息'],
-  };
-
-  const split = splits[level];
+  const split = weeklySplits[level];
+  const templates = dayTemplates[level];
   const cardioMinutes = goalType === 'fat_loss' ? 30 : goalType === 'recomp' ? 20 : 10;
 
   return split.map((day, index) => {
@@ -456,9 +1139,8 @@ export function generateTrainingPlan(
     if (day === '休息' || day.startsWith('有氧')) {
       notes = day === '休息' ? '完全休息日，保证肌肉恢复' : '低强度有氧30-45分钟，如快走、游泳、骑车';
     } else {
-      // 根据训练日分配动作
-      exercises = getExercisesForDay(day, level, painAreas);
-      notes = getDayNotes(day, goalType);
+      exercises = getExercisesForDay(day, level, painAreas, templates);
+      notes = getDayNotes(day, goalType, level);
     }
 
     return {
@@ -471,53 +1153,100 @@ export function generateTrainingPlan(
   });
 }
 
-function getExercisesForDay(day: string, level: FitnessLevel, painAreas: string[]): Exercise[] {
+function getExercisesForDay(
+  day: string,
+  level: FitnessLevel,
+  painAreas: string[],
+  templates: Record<string, DayTemplate>
+): Exercise[] {
+  const template = templates[day];
+  if (!template) return [];
+
+  const allowedDifficulties = difficultyRange[level];
+
+  // 过滤：难度匹配 + 排除伤病动作
   const filtered = exerciseDatabase.filter(e => {
-    // 排除疼痛部位相关动作
+    if (!allowedDifficulties.includes(e.difficulty)) return false;
+    if (e.isRehab) return false; // 康复动作不进入正常训练日
     if (painAreas.includes('肩膀') && (e.muscleGroup === '肩部' || e.name.includes('卧推') || e.name.includes('推举'))) return false;
-    if (painAreas.includes('膝盖') && (e.muscleGroup === '腿部' && e.name.includes('深蹲'))) return false;
+    if (painAreas.includes('膝盖') && (e.muscleGroup === '腿部' && (e.name.includes('深蹲') || e.name.includes('腿举')))) return false;
     if (painAreas.includes('腰部') && (e.name.includes('硬拉') || e.name.includes('划船'))) return false;
-    return e.difficulty === level || (level === 'advanced' && e.difficulty === 'intermediate');
+    if (painAreas.includes('手腕') && (e.name.includes('弯举') || e.name.includes('推举'))) return false;
+    return true;
   });
 
-  // 根据训练日选取对应肌群动作
-  const muscleMap: Record<string, string[]> = {
-    '胸': ['胸部'],
-    '背': ['背部'],
-    '腿': ['腿部'],
-    '肩': ['肩部'],
-    '手臂': ['手臂'],
-    '核心': ['核心'],
-    '全身': ['胸部', '背部', '腿部', '肩部', '核心'],
-  };
+  const selected: Exercise[] = [];
+  const usedIds = new Set<string>();
 
-  const targetMuscles = muscleMap[day.split('+')[0].replace('(', '').trim()] || ['胸部'];
-  let selected = filtered.filter(e => targetMuscles.includes(e.muscleGroup));
+  // 策略：按优先级选择动作，确保每个子肌群都有覆盖
+  // 1. 先从主要肌群中选动作，按 subMuscle 分组，每组选1-2个
+  for (const muscle of template.primary) {
+    const muscleExercises = filtered.filter(e => e.muscleGroup === muscle && !usedIds.has(e.id));
 
-  // 补充辅助肌群
-  if (day.includes('三头')) {
-    selected = [...selected, ...filtered.filter(e => e.muscleGroup === '手臂' && e.subMuscle.includes('三头'))];
+    // 按 subMuscle 分组
+    const subGroups: Record<string, Exercise[]> = {};
+    for (const ex of muscleExercises) {
+      const key = ex.subMuscle;
+      if (!subGroups[key]) subGroups[key] = [];
+      subGroups[key].push(ex);
+    }
+
+    // 每个 subMuscle 选 1-2 个动作（新手1个，进阶/老手2个）
+    const perGroup = level === 'beginner' ? 1 : 2;
+    for (const group of Object.values(subGroups)) {
+      const take = group.slice(0, perGroup);
+      for (const ex of take) {
+        if (selected.length < template.maxExercises && !usedIds.has(ex.id)) {
+          selected.push(ex);
+          usedIds.add(ex.id);
+        }
+      }
+    }
   }
-  if (day.includes('二头')) {
-    selected = [...selected, ...filtered.filter(e => e.muscleGroup === '手臂' && e.subMuscle.includes('二头'))];
+
+  // 2. 补充辅助肌群动作
+  for (const muscle of template.secondary) {
+    if (selected.length >= template.maxExercises) break;
+    const muscleExercises = filtered.filter(e => e.muscleGroup === muscle && !usedIds.has(e.id));
+    const take = muscleExercises.slice(0, level === 'beginner' ? 1 : 2);
+    for (const ex of take) {
+      if (selected.length < template.maxExercises && !usedIds.has(ex.id)) {
+        selected.push(ex);
+        usedIds.add(ex.id);
+      }
+    }
   }
 
-  // 限制每个训练日的动作数量
-  const maxExercises = level === 'beginner' ? 5 : level === 'intermediate' ? 6 : 7;
-  return selected.slice(0, maxExercises);
+  // 3. 老手额外增加一个高级动作
+  if (level === 'advanced' && selected.length < template.maxExercises) {
+    const advancedExercises = filtered.filter(
+      e => e.difficulty === 'advanced' && !usedIds.has(e.id) &&
+        (template.primary.includes(e.muscleGroup) || template.secondary.includes(e.muscleGroup))
+    );
+    for (const ex of advancedExercises) {
+      if (selected.length < template.maxExercises) {
+        selected.push(ex);
+        usedIds.add(ex.id);
+      }
+    }
+  }
+
+  return selected;
 }
 
-function getDayNotes(day: string, goalType: string): string {
+function getDayNotes(day: string, goalType: string, level: FitnessLevel): string {
+  const levelLabel = level === 'beginner' ? '新手' : level === 'intermediate' ? '进阶' : '老手';
   const notes: Record<string, string> = {
-    '胸+三头': '先做胸部复合动作，再做三头孤立动作。胸肌训练会预疲劳三头肌。',
-    '背+二头': '先做背部拉的动作，再做二头弯举。注意肩胛骨的控制。',
-    '腿+核心': '腿部训练强度大，建议充分热身。核心动作放在最后。',
-    '肩+手臂': '肩部训练注意重量不要过大，避免肩峰撞击。',
-    '胸': '重点日，可以安排4-5个胸部动作，从上胸到下胸全面刺激。',
-    '背': '注意动作多样性，垂直拉和水平拉都要安排。',
-    '腿(股四)': '以深蹲和腿举为主，注意膝盖不要内扣。',
-    '腿(后链)': '以硬拉和腿弯举为主，感受腘绳肌拉伸。',
-    '手臂+核心': '二头三头超级组可以节省时间，提高泵感。',
+    '胸+三头': '先做胸部复合动作（卧推类），再做孤立动作（飞鸟/夹胸），最后练三头。胸肌训练会预疲劳三头肌，所以三头放在最后。',
+    '背+二头': '先做垂直拉（引体/下拉），再做水平拉（划船），最后练二头。注意肩胛骨的控制，每一下都要感受背部发力。',
+    '腿+核心': '腿部训练强度大，建议充分热身5-10分钟。先做复合动作（深蹲/腿举），再做孤立动作。核心动作放在最后。',
+    '肩+手臂': '肩部训练注意重量不要过大，避免肩峰撞击。先做推举类复合动作，再做侧平举等孤立动作，最后练手臂。',
+    '胸': `${levelLabel}胸日：从上胸到下胸全面刺激。先做上斜推举（上胸最弱），再做平板推举，最后用夹胸/飞鸟收尾。`,
+    '背': `${levelLabel}背日：垂直拉和水平拉都要安排。先做引体/下拉（宽度），再做划船（厚度），最后用直臂下压孤立背阔肌。`,
+    '腿(股四)': `${levelLabel}股四日：以深蹲和腿举为主，注意膝盖不要内扣。蹲至大腿低于平行线，感受股四头肌充分拉伸和收缩。`,
+    '腿(后链)': `${levelLabel}后链日：以硬拉和腿弯举为主，感受绳肌拉伸。臀推激活臀大肌，改善臀腿比例。`,
+    '肩': `${levelLabel}肩日：先做推举（前束/中束），再做侧平举（中束），最后做面拉/反向飞鸟（后束）。后束最容易被忽略。`,
+    '手臂+核心': `${levelLabel}手臂日：二头三头交替训练，可以超级组节省时间。先做复合弯举/下压，再做孤立动作。核心放在最后。`,
   };
   return notes[day] || '保持专注，控制动作节奏，感受目标肌肉发力。';
 }
